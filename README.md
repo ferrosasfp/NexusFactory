@@ -156,9 +156,9 @@ Antigravity utiliza la carpeta `.agent/` como su centro de mando. Puedes pedirle
 
 | Componente | Carpeta | Uso en Chat |
 |------------|---------|-------------|
-| **Workflows** | `.agent/workflows/` | *"Ejecuta el workflow de QA"* o *"Inicia nueva-app"* |
-| **Skills** | `.agent/skills/` | Capacidades extendidas (se cargan automáticamente) |
-| **Rules** | `.agent/rules.md` | Reglas de comportamiento que Antigravity siempre sigue |
+| **Workflows** | `.agent/workflows/` | **El Core de Antigravity**. Define procesos paso a paso como `qa`, `new-app` o `eject-sf`. Antigravity leerá estos archivos para saber *exactamente* cómo ejecutar tareas complejas. |
+| **Skills** | `.agent/skills/` | **Módulos de Conocimiento**. Carpetas que contienen scripts Python, instrucciones especializadas y herramientas custom que expanden lo que el agente puede hacer. |
+| **Rules** | `.agent/rules.md` | **La Constitución**. Reglas inquebrantables que Antigravity consulta antes de cada acción crítica. Aquí se definen los límites del proyecto. |
 
 ### 🤖 Claude Code (Anthropic)
 Si utilizas el CLI de `claude`, tienes acceso a comandos slash nativos mapeados en `.claude/`:
@@ -170,8 +170,8 @@ Si utilizas el CLI de `claude`, tienes acceso a comandos slash nativos mapeados 
 | `/qa` | (vía script) | Ejecuta el ciclo de validación blindado |
 
 ### 🛠️ Cómo extender la Inteligencia
-1. **Crear Workflows**: Añade archivos `.md` en `.agent/workflows/`. Antigravity los leerá y ejecutará paso a paso.
-2. **Crear Skills**: Usa el `skill-creator` incluido para añadir nuevas herramientas a tus agentes.
+1. **Crear Workflows**: Añade archivos `.md` en `.agent/workflows/` con el formato YAML frontmatter. Antigravity los indexará automáticamente como nuevas capacidades.
+2. **Crear Skills**: Usa el skill `skill-creator` (ubicado en `.agent/skills/skill-creator`) para generar nuevas "habilidades" completas con scripts y documentación.
 
 ### MCPs Configurados (El Cyborg)
 
