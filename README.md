@@ -301,10 +301,15 @@ src/features/auth/
 
 ## 📚 Documentación
 
-- **CLAUDE.md** - System prompt completo (la fuente de verdad)
-- **.claude/prompts/** - Metodologías y patrones
-- **.claude/PRPs/prp-base.md** - Sistema de Blueprints
-- **.claude/skills/** - Skills reutilizables
+### 🌌 Antigravity Docs
+- **GEMINI.md** - El "Factory OS". Define tu identidad y reglas maestras.
+- **.agent/rules.md** - Límites operativos y de seguridad.
+- **.agent/workflows/** - Procedimientos estandarizados (QA, Deploy, Features).
+
+### 🤖 Claude Docs
+- **CLAUDE.md** - System prompt completo (la fuente de verdad para Claude).
+- **.claude/prompts/** - Metodologías y patrones de diseño.
+- **.claude/skills/** - Skills reutilizables.
 
 ## 🚨 Troubleshooting
 
