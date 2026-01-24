@@ -397,7 +397,7 @@ En tu dashboard de Vercel, añade:
 
 Esta **Antigravity Edition** es una evolución construida sobre los cimientos de la comunidad:
 
-- **SaaS Factory**: La arquitectura original y el concepto de "Fábrica" fueron creados por **Daniel**, cuyo trabajo desde la V1 hasta la V3 sirve de base de inspiración y estructura para este proyecto.
+- **SaaS Factory**: La arquitectura original y el concepto de "Fábrica" fueron creados por **[Daniel](https://github.com/daniel-carreon)**, cuyo trabajo desde la V1 hasta la V3 sirve de base de inspiración y estructura para este proyecto.
 
 ---
 
