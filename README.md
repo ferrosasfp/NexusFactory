@@ -355,6 +355,12 @@ En tu dashboard de Vercel, añade:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
+## 🙌 Créditos y Reconocimientos
+
+Esta versión **V3** es una evolución construida sobre los cimientos de la comunidad:
+
+- **SaaS Factory V1**: Creado originalmente por **Daniel**, quien diseñó el concepto inicial y la integración con Claude Code que sirve de base para este proyecto.
+
 ---
 
 **SaaS Factory V3 Base** | Built with AI-first development in mind 🤖
