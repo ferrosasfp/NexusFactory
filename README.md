@@ -318,10 +318,10 @@ Este proyecto sigue el estándar de **Supabase CLI**.
 - Todas las migraciones deben guardarse en `supabase/migrations/`.
 - **Regla de Oro**: Nunca hagas cambios manuales en el dashboard que no tengan una migración correspondiente en el repo.
 
-## 🧪 Testing Strategy
+## 🧪 Testing Strategy (High-Integrity)
 
-### Unit Tests
-
+### 1. Unit Tests (Jest)
+Utilizamos Jest para lógica de negocio y hooks.
 ```typescript
 // src/features/auth/hooks/useAuth.test.ts
 import { renderHook } from '@testing-library/react'
@@ -334,12 +334,17 @@ test('should authenticate user', async () => {
 })
 ```
 
-### Run Tests
+### 2. Agentic Validation (Antigravity Mode)
+En esta edición, el testing ya no es una tarea manual. Antigravity actúa como tu **Ingeniero de QA**:
 
+- **Self-Healing Tests**: Si un test falla, puedes pedirme: *"Analiza por qué falló el test de login y corrígelo"*. Yo ejecutaré, analizaré el error y aplicaré el fix.
+- **Visual QA (Playwright)**: Gracias a la integración con `browser_subagent`, puedo navegar por tu app, capturar screenshots y verificar que el diseño coincida con los requisitos.
+- **Auto-Generation**: Pídele al agente: *"Genera los tests unitarios para la nueva feature de facturación"*.
+
+### 3. Comandos de Ejecución
 ```bash
-npm run test                    # Run all tests
-npm run test:watch              # Watch mode
-npm run test:coverage           # Coverage report
+npm run test          # Ejecuta todos los tests unitarios
+npm run qa            # Validación total (Tipos + Estilo + Build)
 ```
 
 ## 🎯 Best Practices
