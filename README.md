@@ -1,30 +1,29 @@
-# 🚀 __APP_NAME__ - Frontend Setup
+# 🚀 __APP_NAME__ - SaaS Factory V3 Base
 
-Setup completo de Next.js 16 + Supabase + Claude Code listo para producción. Arquitectura Feature-First optimizada para desarrollo asistido por IA.
+Setup de Next.js 16 + Supabase + AI Agent Intelligence. Arquitectura Feature-First optimizada para desarrollo asistido por IA (Antigravity & Claude Code).
 
 ## 🎯 ¿Qué es esto?
 
-Un template **production-ready** para aplicaciones frontend modernas con:
+El "Golden Path" para aplicaciones modernas:
 
-- ✅ Next.js 16 (App Router) + TypeScript
+- ✅ Next.js 16 (App Router) + TypeScript 5
 - ✅ Supabase (Database + Auth)
-- ✅ Tailwind CSS + shadcn/ui
-- ✅ Claude Code con comandos, agentes y skills
-- ✅ Arquitectura Feature-First optimizada para IA
-- ✅ Auto port detection (3000-3006)
-- ✅ Testing, linting y type checking configurados
+- ✅ Tailwind CSS 3.4
+- ✅ **Antigravity AI Native**: Integración total con el cerebro de la fábrica
+- ✅ Claude Code compatible (comandos, agentes y skills)
+- ✅ Arquitectura Feature-First optimizada para agentes
+- ✅ Pipeline de QA blindado (lint, typecheck, build)
 
 ## 📦 Tech Stack
 
 ```yaml
-Runtime: Node.js + TypeScript
-Framework: Next.js 16 (App Router)
-Database: PostgreSQL/Supabase
+Runtime: Node.js 20+
+Framework: Next.js 16
+Database: Supabase (PostgreSQL)
 Styling: Tailwind CSS
-State: Zustand
-Testing: Jest + React Testing Library
+AI Agents: Antigravity (Google Deepmind) / Claude Code
 Validation: Zod
-AI Tooling: Claude Code + MCPs
+State: Zustand
 ```
 
 ## 🏗️ Arquitectura Feature-First
