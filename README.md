@@ -357,4 +357,8 @@ En tu dashboard de Vercel, añade:
 
 ---
 
-**Next.js + Claude Code Setup v1.0** | Built with AI-first development in mind 🤖
+**SaaS Factory V3 Base** | Built with AI-first development in mind 🤖
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Siéntete libre de usarlo, modificarlo y compartirlo para construir el futuro del software inteligente.
