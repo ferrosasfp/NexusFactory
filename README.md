@@ -139,23 +139,30 @@ npm run dev
 # El sistema auto-detectará un puerto disponible (3000-3006)
 ```
 
-## 🛠️ Comandos Disponibles
+## 🛠️ Operatividad y Comandos
 
-### Development
-```bash
-npm run dev          # Servidor desarrollo (auto-port 3000-3006)
-npm run build        # Build para producción
-npm run start        # Servidor producción
-```
+Este proyecto está diseñado para ser operado tanto por humanos como por agentes de IA.
 
-### Quality Assurance
-```bash
-npm run test         # Tests con Jest
-npm run test:watch   # Tests en modo watch
-npm run lint         # ESLint
-npm run lint:fix     # Fix automático
-npm run typecheck    # TypeScript check
-```
+### 💻 Ciclo de Desarrollo (NPM)
+Comandos estándar para ejecución local:
+
+| Comando | Acción |
+|---------|--------|
+| `npm run dev` | Inicia el servidor con **Turbopack** (Auto-port 3000-3006). |
+| `npm run qa` | **El comando de oro**. Ejecuta typecheck, lint y build en un solo paso. |
+| `npm run build` | Compila la aplicación para producción. |
+| `npm run lint:fix` | Corrige automáticamente errores de estilo detectados. |
+
+### 🤖 Comandos para Agentes (Natural Language)
+Si estás usando **Antigravity** o **Claude**, no necesitas recordar scripts de terminal. Puedes usar lenguaje natural:
+
+| Objetivo | Prompt para Antigravity | Comando Claude |
+|-----------|------------------------|----------------|
+| **Validar Calidad** | *"Ejecuta el workflow de QA"* | `/qa` |
+| **Crear Feature** | *"Genera un PRP para [nombre]"* | `/generar-prp` |
+| **Desplegar** | *"Inicia el deploy a Vercel"* | (vía CLI) |
+| **Explorar Código** | *"Analiza la arquitectura"* | `/explorador` |
+| **Nueva App** | *"Ejecuta el workflow new-app"* | (vía CLI) |
 
 ### Skills Management
 ```bash
