@@ -365,9 +365,9 @@ En tu dashboard de Vercel, añade:
 
 ## 🙌 Créditos y Reconocimientos
 
-Esta versión **V3** es una evolución construida sobre los cimientos de la comunidad:
+Esta **Antigravity Edition** es una evolución construida sobre los cimientos de la comunidad:
 
-- **SaaS Factory V1**: Creado originalmente por **Daniel**, quien diseñó el concepto inicial y la integración con Claude Code que sirve de base para este proyecto.
+- **SaaS Factory**: La arquitectura original y el concepto de "Fábrica" fueron creados por **Daniel**, cuyo trabajo desde la V1 hasta la V3 sirve de base de inspiración y estructura para este proyecto.
 
 ---
 
