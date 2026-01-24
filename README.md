@@ -281,7 +281,12 @@ Pide al agente que genere un **PRP (Product Requirements Proposal)**. Al usar el
 
 ## 🔒 Supabase Setup (Dual Agent Architecture)
 
-### 1. Configuración del Cliente
+### 1. Preparación del Proyecto
+1. Visita el [Dashboard de Supabase](https://supabase.com/dashboard).
+2. Crea un nuevo proyecto.
+3. Copia la `URL` y la `Anon Key` (API Key) en tu archivo local `.env.local`.
+
+### 2. Configuración del Cliente
 El cliente ya está centralizado y configurado. El agente utilizará automáticamente esta instancia:
 
 ```typescript
