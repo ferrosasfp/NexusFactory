@@ -4,14 +4,25 @@
 
 Esta es una edición evolucionada de la SaaS Factory, optimizada para ser **100% agnóstica al modelo**. Ha sido blindada para operar con la misma precisión tanto en **Antigravity (Google Deepmind)** como en **Claude Code (Anthropic)**.
 
-## 🎯 ¿Qué es esto?
+## 🎯 El Golden Path (Un Solo Stack)
 
-El "Golden Path" para aplicaciones modernas diseñadas para ser construidas por agentes:
+No damos opciones técnicas. Ejecutamos el stack perfeccionado para que la IA sea 100% productiva desde el minuto uno:
 
-- ✅ **LLM-Agnostic Native**: Estructura blindada para Antigravity, Claude Code y futuros agentes.
-- ✅ **Next.js 16 (App Router)**: Aprovechando Turbopack (70x más rápido).
-- ✅ **Supabase**: Auth + DB con RLS pre-configurado.
-- ✅ **Arquitectura Feature-First**: Colocalización total de lógica para eliminar la confusión de la IA.
+| Capa | Tecnología | Por Qué |
+|------|------------|---------|
+| **Framework** | Next.js 16 (App Router) | Full-stack nativo, Turbopack es 70x más rápido. |
+| **Database** | Supabase (PostgreSQL) | Auth + RLS + Storage sin configuraciones pesadas. |
+| **Estilos** | Tailwind CSS 3.4 | Utility-first, evita el context switching. |
+| **IA Control** | **Antigravity** / Claude | Multi-agente ready, arquitectura Feature-First. |
+| **QA Gate** | ESLint + Typecheck | Blindaje de código antes de cada commit. |
+
+## 🚀 ¿Qué es esto?
+
+Este es el estándar para aplicaciones modernas diseñadas para ser construidas por humanos en colaboración con agentes:
+
+- ✅ **LLM-Agnostic Native**: Estructura blindada para Antigravity, Claude Code y GPT-4.
+- ✅ **Setup Next.js 16**: Configuración optimizada para el nuevo motor de compilación.
+- ✅ **Arquitectura Feature-First**: Colocalización total (componentes, hooks, tipos) en un solo lugar.
 - ✅ **CLI Scaffolder Global**: Crea nuevos proyectos en segundos con `create-saas-factory`.
 
 ## 📦 AI Setup
