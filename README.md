@@ -194,25 +194,22 @@ Lee `.claude/prompts/bucle-agentico.md` para más detalles.
 
 ## 📝 Crear tu Primera Feature
 
-### Opción 1: Manual
+## 📝 Crear tu Primera Feature
 
+### Opción 1: Manual
 ```bash
 mkdir -p src/features/mi-feature/{components,hooks,services,types,store}
 ```
 
-### Opción 2: Con PRP
+### Opción 2: Con Agentes (Antigravity o Claude)
 
-```bash
-# En Claude Code, ejecuta:
-/generar-prp
+Pide al agente que genere un **PRP (Product Requirements Proposal)**. Al usar el sistema PRP, el agente:
+1. Analizará tus requisitos.
+2. Generará la estructura completa en `src/features/`.
+3. Creará componentes, hooks y tests base automáticamente.
 
-# Describe tu feature, el agente generará:
-# - Estructura completa
-# - Componentes base
-# - Hooks necesarios
-# - Types + validaciones
-# - Tests
-```
+**Prompt Ejemplo:**
+*"Genera un PRP para una feature de 'Gestión de Inventario' que permita añadir y listar productos."*
 
 ## 🔒 Supabase Setup
 
