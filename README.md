@@ -342,11 +342,11 @@ npm run test -- --verbose       # Ver detalles
 
 ## 🎯 Próximos Pasos
 
-1. **Lee CLAUDE.md** - Principios y convenciones completas
-2. **Configura Supabase** - Auth + Database
-3. **Crea tu primera feature** - Usa `/generar-prp`
-4. **Implementa autenticación** - Feature auth incluida
-5. **Deploy** - Vercel/Netlify ready
+1. **Lee la Documentación**: Revisa `GEMINI.md` (Antigravity) o `CLAUDE.md` (Claude) para entender las reglas de la fábrica.
+2. **Configura Supabase**: Conecta tu proyecto con Auth + Database.
+3. **Crea tu primera feature**: Pide al agente que genere un PRP.
+4. **Implementa autenticación**: La feature `auth` ya viene pre-instalada.
+5. **Deploy**: Listo para desplegar en Vercel con un solo comando.
 
 ## 🤝 Contribuir
 
