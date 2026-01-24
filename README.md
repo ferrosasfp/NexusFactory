@@ -72,7 +72,30 @@ src/
 
 > **¿Por qué Feature-First?** Cada feature tiene TODO lo necesario en un solo lugar. Perfecto para que la IA entienda contexto completo sin navegar múltiples carpetas.
 
-## 🚀 Quick Start
+## 🛠️ Instalación Global del CLI (Scaffolder)
+
+Para poder usar el comando `create-saas-factory` desde cualquier lugar de tu máquina (sin importar la ruta), sigue estos pasos:
+
+### 1. Clonar este repositorio
+```bash
+git clone https://github.com/ferrosasfp/saas-factory-base.git
+```
+
+### 2. Registrar el comando en tu sistema
+```bash
+cd saas-factory-base/create-saas-factory
+npm install -g .
+```
+
+### 3. ¡Listo! Crea tu primer proyecto
+Ve a la carpeta donde quieras trabajar y ejecuta:
+```bash
+create-saas-factory mi-nuevo-proyecto
+```
+
+---
+
+## 🚀 Quick Start (Manual)
 
 ### 1. Instalar Dependencias
 
