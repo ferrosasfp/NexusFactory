@@ -97,47 +97,46 @@ create-saas-factory mi-nuevo-proyecto
 
 ## 🚀 Quick Start (Manual)
 
-### 1. Instalar Dependencias
+### 1. Preparación Común (Base)
 
 ```bash
+# 1. Instalar Dependencias
 npm install
-# o
-pnpm install
-```
 
-### 2. Configurar Variables de Entorno
-
-```bash
-# Crear .env.local
+# 2. Configurar Variables de Entorno
+# Copia el ejemplo y edita con tus credenciales de Supabase
 cp .env.example .env.local
-
-# Editar con tus credenciales de Supabase
-NEXT_PUBLIC_SUPABASE_URL=tu_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key
 ```
 
-### 3. Configurar MCPs (Opcional)
+### 2. Configurar tu Agente (D cyborg Mode)
 
-Edita `.mcp.json` con tu project ref de Supabase:
+Elige tu motor de IA y configura sus superpoderes (MCPs):
 
-```json
-{
-  "mcpServers": {
-    "supabase": {
-      "args": ["--project-ref=TU_PROJECT_REF"],
-      "env": {
-        "SUPABASE_ACCESS_TOKEN": "TU_TOKEN"
-      }
-    }
-  }
-}
-```
+#### 🌌 Si usas Antigravity (Google)
+1. Copia el archivo de configuración de MCP:
+   ```bash
+   cp antigravity.mcp_config.example.json antigravity.mcp_config.json
+   ```
+2. Asegúrate de que Antigravity tenga acceso a los servicios (Supabase, Playwright).
 
-### 4. Iniciar Desarrollo
+#### 🤖 Si usas Claude Code (Anthropic)
+1. Edita el archivo `.mcp.json` con tu project ref y tokens:
+   ```json
+   {
+     "mcpServers": {
+       "supabase": {
+         "args": ["--project-ref=TU_PROJECT_REF"],
+         "env": { "SUPABASE_ACCESS_TOKEN": "TU_TOKEN" }
+       }
+     }
+   }
+   ```
+
+### 3. Iniciar Desarrollo
 
 ```bash
 npm run dev
-# Auto-detecta puerto disponible (3000-3006)
+# El sistema auto-detectará un puerto disponible (3000-3006)
 ```
 
 ## 🛠️ Comandos Disponibles
