@@ -194,8 +194,6 @@ Lee `.claude/prompts/bucle-agentico.md` para más detalles.
 
 ## 📝 Crear tu Primera Feature
 
-## 📝 Crear tu Primera Feature
-
 ### Opción 1: Manual
 ```bash
 mkdir -p src/features/mi-feature/{components,hooks,services,types,store}
