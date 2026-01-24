@@ -147,33 +147,66 @@ python .claude/skills/skill-creator/scripts/quick_validate.py ./my-skill
 python .claude/skills/skill-creator/scripts/package_skill.py ./my-skill
 ```
 
-## � AI Agency (Control Room)
+## 🧠 The Dual Brain Architecture ("El Cerebro Dual")
 
-Este proyecto no solo es código; es una **fábrica operada por agentes**. Hemos diseñado una estructura dual para que cualquier IA avanzada (Antigravity o Claude) sepa exactamente qué hacer.
+Esta fábrica está diseñada con una arquitectura de **gobernanza híbrida**. No te obligamos a elegir; te damos lo mejor de ambos mundos operando sobre el mismo código base.
+
+```mermaid
+graph TD
+    User((Developer))
+    
+    subgraph "🤖 AI Agents"
+        Antigravity[("Antigravity (Deepmind)\nAgentic Mode")]
+        Claude[("Claude Code (Anthropic)\nCLI Mode")]
+    end
+    
+    subgraph "🏭 SaaS Factory Core"
+        Rules["Reglas Maestras\n(.agent/rules.md)"]
+        Workflows["Workflows & Skills\n(.agent/workflows/)"]
+        Code["Feature-First Code\n(src/features/)"]
+        DB[(Supabase)]
+    end
+
+    User --> Antigravity
+    User --> Claude
+    
+    Antigravity --> Rules
+    Claude --> Rules
+    
+    Antigravity --> Workflows
+    Antigravity --> Code
+    Claude --> Code
+    
+    Code --> DB
+```
 
 ### 🌌 Antigravity (Google Deepmind)
-Antigravity utiliza la carpeta `.agent/` como su centro de mando. Puedes pedirle que ejecute procesos complejos mencionando sus **Workflows**:
+**Enfoque**: Gestión de proyectos de largo recorrido, arquitectura y ejecución de planes complejos. Se activa automáticamente en entornos compatibles con Gemini.
 
-| Componente | Carpeta | Uso en Chat |
-|------------|---------|-------------|
-| **Workflows** | `.agent/workflows/` | **El Core de Antigravity**. Define procesos paso a paso como `qa`, `new-app` o `eject-sf`. Antigravity leerá estos archivos para saber *exactamente* cómo ejecutar tareas complejas. |
-| **Skills** | `.agent/skills/` | **Módulos de Conocimiento**. Carpetas que contienen scripts Python, instrucciones especializadas y herramientas custom que expanden lo que el agente puede hacer. |
-| **Rules** | `.agent/rules.md` | **La Constitución**. Reglas inquebrantables que Antigravity consulta antes de cada acción crítica. Aquí se definen los límites del proyecto. |
+| Capa | Recurso | Descripción |
+|------|---------|-------------|
+| **OS** | `GEMINI.md` | Tu identidad y memoria a largo plazo. |
+| **Workflows** | `.agent/workflows/` | Procesos estandarizados que puedes invocar. |
+| **Skills** | `.agent/skills/` | Herramientas Python/Node avanzadas. |
+| **Agentic** | **Auto-Tasking** | Crea `task.md` y `artifacts` para seguimiento. |
+
+#### ⚡ Workflows Disponibles
+Simplemente pide: *"Ejecuta el workflow de..."*
+
+- **`qa`**: Corre el ciclo completo de calidad (Typecheck + Lint + Build).
+- **`new-app`**: Inicia el proceso de creación de una nueva aplicación hija.
+- **`landing`**: Genera una landing page optimizada basada en tus specs.
+- **`eject-sf`**: Prepara el proyecto para entrega final eliminando herramientas de fábrica.
 
 ### 🤖 Claude Code (Anthropic)
-Si utilizas el CLI de `claude`, tienes acceso a comandos slash nativos mapeados en `.claude/`:
+**Enfoque**: Iteraciones rápidas en terminal, refactoring y consultas directas.
 
-| Comando | Carpeta Origen | Descripción |
-|---------|----------------|-------------|
-| `/explorador` | `.claude/commands/` | Análisis profundo de arquitectura |
-| `/ejecutar-prp` | `.claude/PRPs/` | Implementación de features complejas |
-| `/qa` | (vía script) | Ejecuta el ciclo de validación blindado |
-
-### 🛠️ Cómo extender la Inteligencia
-1. **Crear Workflows**: Añade archivos `.md` en `.agent/workflows/` con el formato YAML frontmatter. Antigravity los indexará automáticamente como nuevas capacidades.
-2. **Crear Skills**: Usa el skill `skill-creator` (ubicado en `.agent/skills/skill-creator`) para generar nuevas "habilidades" completas con scripts y documentación.
-
-### MCPs Configurados (El Cyborg)
+| Comando | Acción |
+|---------|--------|
+| `/explorador` | Mapa mental de la arquitectura actual. |
+| `/generar-prp` | Crea especificaciones de nuevas features. |
+| `/ejecutar-prp` | Implementa código basado en una spec aprobada. |
+| `/qa` | Ejecuta el script de calidad localmente. |
 
 - 🧠 **Next.js DevTools** - Conectado a `/_next/mcp` para debug en tiempo real
 - 👁️ **Playwright** - Validación visual y testing automatizado
@@ -298,18 +331,6 @@ src/features/auth/
 ├── types/          # Types de auth
 └── store/          # Estado de auth
 ```
-
-## 📚 Documentación
-
-### 🌌 Antigravity Docs
-- **GEMINI.md** - El "Factory OS". Define tu identidad y reglas maestras.
-- **.agent/rules.md** - Límites operativos y de seguridad.
-- **.agent/workflows/** - Procedimientos estandarizados (QA, Deploy, Features).
-
-### 🤖 Claude Docs
-- **CLAUDE.md** - System prompt completo (la fuente de verdad para Claude).
-- **.claude/prompts/** - Metodologías y patrones de diseño.
-- **.claude/skills/** - Skills reutilizables.
 
 ## 🚨 Troubleshooting
 
