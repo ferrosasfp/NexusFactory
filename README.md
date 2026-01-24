@@ -279,25 +279,39 @@ Pide al agente que genere un **PRP (Product Requirements Proposal)**. Al usar el
 **Prompt Ejemplo:**
 *"Genera un PRP para una feature de 'Gestión de Inventario' que permita añadir y listar productos."*
 
-## 🔒 Supabase Setup (Agent-Native)
+## 🔒 Supabase Setup (Dual Agent Architecture)
 
-Este proyecto está diseñado para que tu base de datos y tu IA hablen el mismo idioma.
+### 1. Configuración del Cliente
+El cliente ya está centralizado y configurado. El agente utilizará automáticamente esta instancia:
 
-### 1. Inicialización
-No necesitas configurar el cliente desde cero; ya está listo en `shared/lib/supabase/`. Solo necesitas las credenciales:
-- Crea un proyecto en [Supabase Dashboard](https://supabase.com/dashboard).
-- Copia tu `URL` y `Anon Key` en el archivo `.env.local`.
+```typescript
+// Localizado en: src/shared/lib/supabase/client.ts
+import { createClient } from '@supabase/supabase-js'
 
-### 2. Gestión de Database con Agentes
-En esta edición, el agente (Antigravity o Claude) tiene acceso directo a tu base de datos a través de **MCP (Model Context Protocol)**:
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+```
 
-- **🌌 Antigravity**: Pídele directamente: *"Crea una tabla 'perfiles' con RLS habilitado"*. Yo usaré el `supabase-mcp-server` para ejecutar el SQL y generar las migraciones por ti.
-- **🤖 Claude**: Utiliza comandos para interactuar con la DB o pide la generación de scripts SQL para ejecutar en la consola de Supabase.
+### 2. Gestión de Datos por Agente
 
-### 3. Migraciones
-Mantenemos el estándar de **Supabase CLI**. 
-- Todas las migraciones deben vivir en `supabase/migrations/`.
-- Puedes pedirle al agente: *"Genera la migración necesaria para el sistema de suscripciones"*.
+#### 🌌 Con Antigravity (Automation Mode)
+Pídele en lenguaje natural que gestione la DB. Yo usaré el `supabase-mcp-server` para:
+- Crear tablas, índices y políticas RLS.
+- Ejecutar SQL directamente.
+- Generar archivos de migración en `supabase/migrations/`.
+
+#### 🤖 Con Claude Code (CLI Mode)
+Asegúrate de tener configurado tu `.mcp.json` para que Claude pueda:
+- Listar tablas y esquemas.
+- Analizar vulnerabilidades RLS.
+- Sugerir y ejecutar planes SQL basados en tus PRPs.
+
+### 3. Flujo de Migraciones
+Este proyecto sigue el estándar de **Supabase CLI**. 
+- Todas las migraciones deben guardarse en `supabase/migrations/`.
+- **Regla de Oro**: Nunca hagas cambios manuales en el dashboard que no tengan una migración correspondiente en el repo.
 
 ## 🧪 Testing Strategy
 
