@@ -342,10 +342,13 @@ En esta edición, el testing ya no es una tarea manual. Antigravity actúa como 
 - **Auto-Generation**: Pídele al agente: *"Genera los tests unitarios para la nueva feature de facturación"*.
 
 ### 3. Comandos de Ejecución
-```bash
-npm run test          # Ejecuta todos los tests unitarios
-npm run qa            # Validación total (Tipos + Estilo + Build)
-```
+
+| Comando | Agente Ideal | Acción |
+|---------|--------------|--------|
+| `npm run test` | Ambos | Ejecuta todos los tests unitarios. |
+| `npm run test:watch` | Claude Code | Modo interactivo para desarrollo rápido. |
+| `npm run test:coverage` | Ambos | Genera reporte de cobertura de código. |
+| `npm run qa` | Antigravity | **Pipeline de Blindaje**. (Tipos + Estilo + Build). |
 
 ## 🎯 Best Practices
 
