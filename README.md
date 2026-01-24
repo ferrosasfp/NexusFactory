@@ -164,15 +164,23 @@ Si estás usando **Antigravity** o **Claude**, no necesitas recordar scripts de 
 | **Explorar Código** | *"Analiza la arquitectura"* | `/explorador` |
 | **Nueva App** | *"Ejecuta el workflow new-app"* | (vía CLI) |
 
-### Skills Management
+### 🧙‍♂️ Skills Management (Superpoderes)
+
+Los Skills son capacidades extendidas que permiten a los agentes interactuar con el sistema de formas avanzadas (ej: optimizar imágenes, gestionar migraciones).
+
+#### 🌌 Para Antigravity
+No necesitas ejecutar scripts manuales. Antigravity carga sus herramientas automáticamente desde `.agent/skills/`.
+- **Nuevo Skill**: Puedes pedirle directamente: *"Crea un nuevo skill llamado 'optimizador' para gestionar activos multimedia"*.
+- **Skill Creator**: También puedes usar la herramienta interna ubicada en `.agent/skills/skill-creator/`.
+
+#### 🤖 Para Claude Code
+Claude utiliza scripts de automatización para gestionar su librería de habilidades en `.claude/skills/`:
 ```bash
-# Crear nuevo skill
+# Crear nuevo skill (basado en template)
 python .claude/skills/skill-creator/scripts/init_skill.py my-skill
 
-# Validar skill
+# Validar y Empaquetar
 python .claude/skills/skill-creator/scripts/quick_validate.py ./my-skill
-
-# Empaquetar skill
 python .claude/skills/skill-creator/scripts/package_skill.py ./my-skill
 ```
 
