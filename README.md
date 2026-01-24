@@ -1,29 +1,26 @@
-# 🚀 __APP_NAME__ - SaaS Factory V3 Base
+# 🚀 __APP_NAME__ - SaaS Factory V3 — Antigravity Edition
 
-Setup de Next.js 16 + Supabase + AI Agent Intelligence. Arquitectura Feature-First optimizada para desarrollo asistido por IA (Antigravity & Claude Code).
+**AI-Agnostic Intelligence** | Setup de Next.js 16 + Supabase + Multi-Agent Control.
+
+Esta es una edición evolucionada de la SaaS Factory, optimizada para ser **100% agnóstica al modelo**. Ha sido blindada para operar con la misma precisión tanto en **Antigravity (Google Deepmind)** como en **Claude Code (Anthropic)**.
 
 ## 🎯 ¿Qué es esto?
 
-El "Golden Path" para aplicaciones modernas:
+El "Golden Path" para aplicaciones modernas diseñadas para ser construidas por agentes:
 
-- ✅ Next.js 16 (App Router) + TypeScript 5
-- ✅ Supabase (Database + Auth)
-- ✅ Tailwind CSS 3.4
-- ✅ **Antigravity AI Native**: Integración total con el cerebro de la fábrica
-- ✅ Claude Code compatible (comandos, agentes y skills)
-- ✅ Arquitectura Feature-First optimizada para agentes
-- ✅ Pipeline de QA blindado (lint, typecheck, build)
+- ✅ **LLM-Agnostic Native**: Estructura blindada para Antigravity, Claude Code y futuros agentes.
+- ✅ **Next.js 16 (App Router)**: Aprovechando Turbopack (70x más rápido).
+- ✅ **Supabase**: Auth + DB con RLS pre-configurado.
+- ✅ **Arquitectura Feature-First**: Colocalización total de lógica para eliminar la confusión de la IA.
+- ✅ **CLI Scaffolder Global**: Crea nuevos proyectos en segundos con `create-saas-factory`.
 
-## 📦 Tech Stack
+## 📦 AI Setup
 
 ```yaml
-Runtime: Node.js 20+
-Framework: Next.js 16
-Database: Supabase (PostgreSQL)
-Styling: Tailwind CSS
-AI Agents: Antigravity (Google Deepmind) / Claude Code
-Validation: Zod
-State: Zustand
+Primary Brain: Antigravity (Google)
+Secondary Brain: Claude Code (Anthropic)
+Universal Support: Cualquier modelo con acceso a tools/MCPs
+Architecture: Feature-First + PRP System
 ```
 
 ## 🏗️ Arquitectura Feature-First
@@ -363,7 +360,7 @@ Esta versión **V3** es una evolución construida sobre los cimientos de la comu
 
 ---
 
-**SaaS Factory V3 Base** | Built with AI-first development in mind 🤖
+**SaaS Factory V3 — Antigravity Edition** | El estándar agnóstico para el desarrollo con IA 🤖
 
 ## 📄 Licencia
 
