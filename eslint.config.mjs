@@ -9,6 +9,7 @@ const eslintConfig = [
             "out/**",
             "dist/**",
             "coverage/**",
+            "create-saas-factory/**",
             "*.min.*",
         ],
     },
