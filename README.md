@@ -147,22 +147,31 @@ python .claude/skills/skill-creator/scripts/quick_validate.py ./my-skill
 python .claude/skills/skill-creator/scripts/package_skill.py ./my-skill
 ```
 
-## 🤖 Claude Code Integration
+## � AI Agency (Control Room)
 
-### Comandos Disponibles
+Este proyecto no solo es código; es una **fábrica operada por agentes**. Hemos diseñado una estructura dual para que cualquier IA avanzada (Antigravity o Claude) sepa exactamente qué hacer.
 
-| Comando | Descripción |
-|---------|-------------|
-| `/explorador` | Explora codebase y arquitectura |
-| `/ejecutar-prp` | Ejecuta PRPs (features complejas) |
-| `/generar-prp` | Genera nuevo PRP |
-| `/preparar-paralelo` | Prepara tareas paralelas |
-| `/ejecutar-paralelo` | Ejecuta en paralelo |
+### 🌌 Antigravity (Google Deepmind)
+Antigravity utiliza la carpeta `.agent/` como su centro de mando. Puedes pedirle que ejecute procesos complejos mencionando sus **Workflows**:
 
-### Agentes Especializados
+| Componente | Carpeta | Uso en Chat |
+|------------|---------|-------------|
+| **Workflows** | `.agent/workflows/` | *"Ejecuta el workflow de QA"* o *"Inicia nueva-app"* |
+| **Skills** | `.agent/skills/` | Capacidades extendidas (se cargan automáticamente) |
+| **Rules** | `.agent/rules.md` | Reglas de comportamiento que Antigravity siempre sigue |
 
-1. **Codebase Analyst** - Analiza arquitectura y patrones
-2. **Gestor Documentación** - Mantiene docs actualizados
+### 🤖 Claude Code (Anthropic)
+Si utilizas el CLI de `claude`, tienes acceso a comandos slash nativos mapeados en `.claude/`:
+
+| Comando | Carpeta Origen | Descripción |
+|---------|----------------|-------------|
+| `/explorador` | `.claude/commands/` | Análisis profundo de arquitectura |
+| `/ejecutar-prp` | `.claude/PRPs/` | Implementación de features complejas |
+| `/qa` | (vía script) | Ejecuta el ciclo de validación blindado |
+
+### 🛠️ Cómo extender la Inteligencia
+1. **Crear Workflows**: Añade archivos `.md` en `.agent/workflows/`. Antigravity los leerá y ejecutará paso a paso.
+2. **Crear Skills**: Usa el `skill-creator` incluido para añadir nuevas herramientas a tus agentes.
 
 ### MCPs Configurados (El Cyborg)
 
