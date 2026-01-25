@@ -139,6 +139,24 @@ npm run dev
 # El sistema auto-detectará un puerto disponible (3000-3006)
 ```
 
+## 🔄 Cómo Mantener tu Proyecto Actualizado
+
+Si clonaste este template, puedes recibir mejoras futuras del "upstream" (la fábrica original) sin perder tus cambios.
+
+### 1. Configurar Remix "Upstream" (Solo una vez)
+Abre tu terminal en la raíz del proyecto:
+```bash
+git remote add upstream https://github.com/ferrosasfp/saas-factory-base.git
+```
+
+### 2. Traer Actualizaciones
+Cuando quieras obtener los últimos parches de seguridad o features:
+```bash
+git fetch upstream
+git merge upstream/main
+```
+(Si hay conflictos, resuélvelos en VS Code y haz commit).
+
 ## 🛠️ Operatividad y Comandos
 
 Este proyecto está diseñado para ser operado tanto por humanos como por agentes de IA.
