@@ -69,13 +69,18 @@ Delega tareas complejas a agentes via `Task` tool:
 
 ## Proceso de Contextualización
 
-### 1. Leer Identidad del Proyecto
+### 1. Leer Identidad del Proyecto (según motor)
 
-Lee `CLAUDE.md` y extrae:
-- **Nombre del proyecto**
-- **Problema que resuelve** (propuesta de valor)
-- **Usuario target** (avatar)
-- **Reglas de negocio específicas**
+- Si estás en **Antigravity**:
+  - Lee `GEMINI.md` (OS / identidad / memoria)
+  - Lee `ANTIGRAVITY_SETUP.md` (operación y MCPs)
+- Si estás en **Claude Code**:
+  - Lee `CLAUDE.md`
+
+**Si existen ambos (`GEMINI.md` y `CLAUDE.md`), léelos ambos**, pero en Antigravity **prioriza `GEMINI.md`**.
+
+Además, si el repo tiene documentación de producto en `doc/` (por ejemplo `doc/00_TROKER_GUARDRAILS.md`, `doc/01_PRD_*.md`, `doc/02_IMPLEMENTATION_GUIDE_*.md`), esa documentación es la fuente de verdad del producto y debe leerse antes de implementar.
+
 
 ### 2. Mapear Estado de BD (via Supabase MCP)
 
