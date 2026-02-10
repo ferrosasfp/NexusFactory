@@ -1,0 +1,79 @@
+'use client'
+
+import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { type Abi, type Address } from 'viem'
+import { useContractWrite } from '../hooks/useContractWrite'
+
+interface ContractWriterProps {
+  address?: Address
+  abi?: Abi
+}
+
+export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: ContractWriterProps) {
+  const t = useTranslations('contracts')
+  const [address, setAddress] = useState(defaultAddress ?? '' as Address)
+  const [functionName, setFunctionName] = useState('')
+  const [argsInput, setArgsInput] = useState('')
+
+  const { hash, isLoading, error, write } = useContractWrite({
+    address: address as Address,
+    abi: defaultAbi ?? [],
+    functionName,
+  })
+
+  async function handleWrite(e: React.FormEvent) {
+    e.preventDefault()
+    const args = argsInput.trim() ? JSON.parse(argsInput) : []
+    await write(args)
+  }
+
+  return (
+    <div className="space-y-4">
+      <h3 className="font-semibold">{t('write')}</h3>
+
+      <form onSubmit={handleWrite} className="space-y-3">
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value as Address)}
+          placeholder={t('address')}
+          className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+        />
+
+        <input
+          type="text"
+          value={functionName}
+          onChange={(e) => setFunctionName(e.target.value)}
+          placeholder="Function name (e.g. mint)"
+          className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+        />
+
+        <input
+          type="text"
+          value={argsInput}
+          onChange={(e) => setArgsInput(e.target.value)}
+          placeholder='Arguments as JSON (e.g. ["0x...", 100])'
+          className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+        />
+
+        <button
+          type="submit"
+          disabled={isLoading || !address || !functionName}
+          className="rounded-md bg-green-600 px-4 py-2 text-sm text-white hover:bg-green-700 disabled:opacity-50"
+        >
+          {isLoading ? '...' : t('write')}
+        </button>
+      </form>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      {hash && (
+        <div className="rounded-md border border-green-200 bg-green-50 p-3">
+          <p className="text-sm text-green-800">Transaction sent!</p>
+          <p className="mt-1 break-all font-mono text-xs text-green-700">{hash}</p>
+        </div>
+      )}
+    </div>
+  )
+}

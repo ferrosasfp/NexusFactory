@@ -1,5 +1,5 @@
 {
-  "name": "saas-factory-app",
+  "name": "nexus-factory",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,25 +9,47 @@
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "qa": "npm run typecheck && npm run lint && npm run build"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "qa": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "i18n:sync": "node scripts/i18n-sync.mjs",
+    "contracts:build": "cd contracts && forge build",
+    "contracts:test": "cd contracts && forge test -vvv",
+    "contracts:slither": "cd contracts && slither src/ --filter-paths lib/",
+    "contracts:sync-abi": "node scripts/sync-abi.mjs",
+    "contracts:deploy:fuji": "cd contracts && forge script script/DeployToken.s.sol --rpc-url fuji --broadcast",
+    "qa:hybrid": "npm run qa && npm run contracts:build && npm run contracts:test"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.0",
     "@supabase/supabase-js": "^2.49.0",
+    "@tanstack/react-query": "^5.90.20",
     "next": "^16.0.0",
+    "next-intl": "^4.8.2",
+    "permissionless": "^0.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "viem": "^2.45.2",
+    "wagmi": "^3.4.2",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.1.4",
     "autoprefixer": "^10.4.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.4",
+    "jsdom": "^28.0.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "vitest": "^4.0.18"
   }
 }

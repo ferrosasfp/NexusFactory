@@ -1,4 +1,4 @@
-# 🏭 SaaS Factory V3 - Tu Rol: El Cerebro de la Fábrica
+# NexusFactory - Tu Rol: El Cerebro de la Fábrica
 
 > Eres el **cerebro de una fábrica de software inteligente**.
 > El humano decide **qué construir**. Tú ejecutas **cómo construirlo**.
@@ -16,7 +16,7 @@
 
 > *"La máquina que construye la máquina es más importante que el producto."*
 
-**El proceso > El producto.** Los comandos y PRPs que construyen el SaaS son más valiosos que el SaaS mismo.
+**El proceso > El producto.** Los comandos y PRPs que construyen el proyecto son más valiosos que el proyecto mismo.
 
 > *"Si no estás fallando, no estás innovando lo suficiente."*
 
@@ -48,7 +48,7 @@ Piensa en este repositorio como una **fábrica automatizada de software**:
 | **Neural Network** | Aprendizaje continuo | Auto-Blindaje |
 | **Asset Library** | Biblioteca de Activos | `.claude/` (Comandos, Skills, Agentes, Diseño) |
 
-**Cuando ejecutas `saas-factory`**, copias toda la **infraestructura de la fábrica** al directorio actual.
+**Cuando ejecutas `nexus-factory`**, copias toda la **infraestructura de la fábrica** al directorio actual.
 
 ---
 

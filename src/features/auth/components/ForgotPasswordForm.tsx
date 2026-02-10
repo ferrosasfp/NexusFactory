@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { resetPassword } from '@/actions/auth'
 
 export function ForgotPasswordForm() {
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false)
+    const t = useTranslations('auth')
 
     async function handleSubmit(formData: FormData) {
         setLoading(true)
@@ -26,7 +28,7 @@ export function ForgotPasswordForm() {
     if (success) {
         return (
             <div className="text-center">
-                <p className="text-green-600">Check your email for a reset link.</p>
+                <p className="text-green-600">{t('resetLinkSent')}</p>
             </div>
         )
     }
@@ -35,7 +37,7 @@ export function ForgotPasswordForm() {
         <form action={handleSubmit} className="space-y-4">
             <div>
                 <label htmlFor="email" className="block text-sm font-medium">
-                    Email
+                    {t('email')}
                 </label>
                 <input
                     id="email"
@@ -55,7 +57,7 @@ export function ForgotPasswordForm() {
                 disabled={loading}
                 className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
             >
-                {loading ? 'Sending...' : 'Send Reset Link'}
+                {loading ? t('sending') : t('sendResetLink')}
             </button>
         </form>
     )

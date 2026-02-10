@@ -2,17 +2,20 @@
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email address'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
+    locale: z.string().default('en'),
 })
 
 const signupSchema = z.object({
     email: z.string().email('Invalid email address'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
+    locale: z.string().default('en'),
 })
 
 const resetPasswordSchema = z.object({
@@ -21,6 +24,7 @@ const resetPasswordSchema = z.object({
 
 const updatePasswordSchema = z.object({
     password: z.string().min(6, 'Password must be at least 6 characters'),
+    locale: z.string().default('en'),
 })
 
 const updateProfileSchema = z.object({
@@ -31,13 +35,14 @@ export async function login(formData: FormData) {
     const validatedFields = loginSchema.safeParse({
         email: formData.get('email'),
         password: formData.get('password'),
+        locale: formData.get('locale'),
     })
 
     if (!validatedFields.success) {
         return { error: validatedFields.error.issues[0].message }
     }
 
-    const { email, password } = validatedFields.data
+    const { email, password, locale } = validatedFields.data
     const supabase = await createClient()
 
     const { error } = await supabase.auth.signInWithPassword({
@@ -50,20 +55,21 @@ export async function login(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard')
+    redirect(`/${locale}/dashboard`)
 }
 
 export async function signup(formData: FormData) {
     const validatedFields = signupSchema.safeParse({
         email: formData.get('email'),
         password: formData.get('password'),
+        locale: formData.get('locale'),
     })
 
     if (!validatedFields.success) {
         return { error: validatedFields.error.issues[0].message }
     }
 
-    const { email, password } = validatedFields.data
+    const { email, password, locale } = validatedFields.data
     const supabase = await createClient()
 
     const { error } = await supabase.auth.signUp({
@@ -76,14 +82,14 @@ export async function signup(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/check-email')
+    redirect(`/${locale}/check-email`)
 }
 
-export async function signout() {
+export async function signout(locale: string = 'en') {
     const supabase = await createClient()
     await supabase.auth.signOut()
     revalidatePath('/', 'layout')
-    redirect('/login')
+    redirect(`/${locale}/login`)
 }
 
 export async function resetPassword(formData: FormData) {
@@ -112,13 +118,14 @@ export async function resetPassword(formData: FormData) {
 export async function updatePassword(formData: FormData) {
     const validatedFields = updatePasswordSchema.safeParse({
         password: formData.get('password'),
+        locale: formData.get('locale'),
     })
 
     if (!validatedFields.success) {
         return { error: validatedFields.error.issues[0].message }
     }
 
-    const { password } = validatedFields.data
+    const { password, locale } = validatedFields.data
     const supabase = await createClient()
 
     const { error } = await supabase.auth.updateUser({ password })
@@ -128,7 +135,7 @@ export async function updatePassword(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard')
+    redirect(`/${locale}/dashboard`)
 }
 
 export async function updateProfile(formData: FormData) {
@@ -162,4 +169,27 @@ export async function updateProfile(formData: FormData) {
 
     revalidatePath('/', 'layout')
     return { success: true }
+}
+
+export async function signInWithGoogle(locale: string) {
+    const supabase = await createClient()
+    const headersList = await headers()
+    const origin = headersList.get('origin') ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${origin}/${locale}/callback`,
+        },
+    })
+
+    if (error) {
+        return { error: error.message }
+    }
+
+    if (data.url) {
+        redirect(data.url)
+    }
+
+    return { error: 'Failed to get OAuth URL' }
 }

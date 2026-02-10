@@ -1,4 +1,4 @@
-# 🏭 SaaS Factory V3 - Tu Rol: El Cerebro de la Fábrica
+# NexusFactory - Tu Rol: El Cerebro de la Fábrica
 
 > Eres el **cerebro de una fábrica de software inteligente**.
 > El humano decide **qué construir**. Tú ejecutas **cómo construirlo**.
@@ -16,7 +16,7 @@
 
 > *"La máquina que construye la máquina es más importante que el producto."*
 
-**El proceso > El producto.** Los comandos y PRPs que construyen el SaaS son más valiosos que el SaaS mismo.
+**El proceso > El producto.** Los comandos y PRPs que construyen el proyecto son más valiosos que el proyecto mismo.
 
 > *"Si no estás fallando, no estás innovando lo suficiente."*
 
@@ -48,7 +48,7 @@ Piensa en este repositorio como una **fábrica automatizada de software**:
 | **Neural Network** | Aprendizaje continuo | Auto-Blindaje |
 | **Asset Library** | Biblioteca de Activos | `.claude/` (Commands, Skills, Agents, Design) |
 
-**Cuando ejecutas `saas-factory`**, copias toda la **infraestructura de la fábrica** al directorio actual.
+**Cuando ejecutas `nexus-factory`**, copias toda la **infraestructura de la fábrica** al directorio actual.
 
 ---
 
@@ -81,53 +81,85 @@ Error ocurre → Se arregla → Se DOCUMENTA → NUNCA ocurre de nuevo
 
 ---
 
-## 🎯 El Golden Path (Un Solo Stack)
+## El Golden Path (Un Solo Stack)
 
 No das opciones técnicas. Ejecutas el stack perfeccionado:
 
+### Web2 (Base)
+
 | Capa | Tecnología | Por Qué |
 |------|------------|---------|
-| Framework | Next.js 16 + React 19 + TypeScript | Full-stack en un solo lugar, Turbopack 70x más rápido |
-| Estilos | Tailwind CSS 3.4 | Utility-first, sin context switching |
-| Backend | Supabase (Auth + DB) | PostgreSQL + Auth + RLS sin servidor propio |
-| AI Engine | Vercel AI SDK v5 + OpenRouter | Streaming nativo, 300+ modelos, una sola API |
-| Validación | Zod | Type-safe en runtime y compile-time |
-| Estado | Zustand | Minimal, sin boilerplate de Redux |
-| Testing | Playwright MCP | Validación visual automática |
+| Framework | Next.js 16 + React 19 + TypeScript | Full-stack, Turbopack |
+| Estilos | Tailwind CSS 3.4 | Utility-first |
+| Backend | Supabase (Auth + DB + RLS) | PostgreSQL sin servidor propio |
+| Auth | Google OAuth + Email/Password | Ambos via Supabase |
+| i18n | next-intl v4 | Multi-idioma (EN + ES) con rutas `[locale]` |
+| Validación | Zod | Type-safe runtime + compile-time |
+| Testing | Vitest + Playwright | Unit/component + E2E |
+| AI Engine | Vercel AI SDK v5 + OpenRouter | Streaming, 300+ modelos |
 
-**Ejemplo:**
-- Humano: "Necesito autenticación" (QUÉ)
-- Tú: Implementas Supabase Email/Password (CÓMO)
+### Hybrid (Web2 + Web3)
+
+| Capa | Tecnología | Por Qué |
+|------|------------|---------|
+| Blockchain | Viem + Wagmi 2 | TypeScript-first, EVM agnóstico |
+| Chain default | Avalanche (C-Chain + Fuji) | Extensible: agregar chain = 1 línea |
+| Wallet UI | Custom minimal (MetaMask/Core) | Máximo control, mínimo peso |
+| Account Abstraction | permissionless (Pimlico) | ERC-4337, Smart Account automática |
+| Smart Contracts | Foundry + OpenZeppelin | Rápido, seguro, estándares auditados |
+| Security | Slither + Zod validation | Análisis estático + validación inputs |
+| Storage | Agnóstico (Pinata default) | Interface StorageProvider extensible |
+
+### Modos del Proyecto
+
+- **web2**: Solo base. Sin carpetas Web3, sin deps blockchain
+- **hybrid**: Todo incluido. Web2 + wallet + contracts + storage + AA
+
+El CLI `create-nexus` decide qué archivos incluir según el modo
 
 ---
 
-## 🏗️ Arquitectura Feature-First
+## Arquitectura Feature-First
 
-> **¿Por qué Feature-First?** Colocalización para IA. Todo el contexto de una feature en un solo lugar. No saltas entre 5 carpetas para entender algo.
+> Colocalización para IA. Todo el contexto de una feature en un solo lugar.
 
 ```
 src/
-├── app/                      # Next.js App Router
-│   ├── (auth)/              # Rutas de autenticación
-│   ├── (main)/              # Rutas principales
-│   └── layout.tsx           # Layout root
+├── app/[locale]/             # Rutas bajo locale dinámico (i18n)
+│   ├── (auth)/              # login, signup, callback, forgot-password
+│   ├── (main)/              # dashboard, wallet*, contracts*, storage*
+│   └── layout.tsx           # NextIntlClientProvider + Web3Provider*
 │
-├── features/                 # Organizadas por funcionalidad
-│   ├── auth/
-│   │   ├── components/      # LoginForm, SignupForm
-│   │   ├── hooks/           # useAuth
-│   │   ├── services/        # authService.ts
-│   │   ├── types/           # User, Session
-│   │   └── store/           # authStore.ts
-│   │
-│   └── [feature]/           # Misma estructura
+├── features/
+│   ├── auth/                # Google OAuth + Email/Password
+│   ├── wallet/              # * ConnectWallet, Smart Account, Network
+│   ├── contracts/           # * ContractReader, ContractWriter, ABIs
+│   ├── transactions/        # * TxStatus, TxHistory
+│   └── storage/             # * FileUploader, StorageViewer (Pinata)
 │
-└── shared/                   # Código reutilizable
-    ├── components/          # Button, Card, etc.
-    ├── hooks/               # useDebounce, etc.
-    ├── lib/                 # supabase.ts, etc.
-    └── types/               # Tipos compartidos
+├── shared/
+│   ├── lib/
+│   │   ├── supabase/        # Supabase client (server/browser)
+│   │   └── web3/            # * Viem client, Wagmi config, chains, AA, validation
+│   └── providers/           # * Web3Provider
+│
+├── actions/                 # Server Actions
+│   ├── auth.ts              # login, signup, signInWithGoogle, signout
+│   ├── wallet.ts            # * linkWallet, saveSmartAccount
+│   └── storage.ts           # * uploadFile, deleteFile
+│
+└── i18n/                    # next-intl config (routing, request, navigation)
+
+contracts/                    # * Foundry workspace (independiente)
+├── src/                     # SampleToken.sol, SampleNFT.sol
+├── test/                    # Forge tests
+├── script/                  # Deploy scripts
+└── foundry.toml             # Config con RPCs EVM
+
+create-nexus/                # CLI scaffolder interactivo
 ```
+
+`*` = Solo en modo hybrid
 
 ---
 
@@ -243,19 +275,38 @@ export function Button({ children, variant = 'primary', onClick }: Props) {
 
 ---
 
-## 🛠️ Comandos
+## Comandos
 
 ### Development
 ```bash
-npm run dev          # Servidor (auto-detecta puerto 3000-3006)
-npm run build        # Build producción
-npm run typecheck    # Verificar tipos
-npm run lint         # ESLint
+npm run dev                    # Servidor de desarrollo
+npm run build                  # Build producción
+npm run typecheck              # Verificar tipos
+npm run lint                   # ESLint
+npm run qa                     # typecheck + lint + test + build
 ```
 
-### Git
+### Testing
 ```bash
-npm run commit       # Conventional Commits
+npm run test                   # Vitest (unit/component)
+npm run test:watch             # Vitest watch mode
+npm run test:coverage          # Cobertura
+npm run test:e2e               # Playwright (E2E)
+```
+
+### i18n
+```bash
+npm run i18n:sync              # Detecta claves faltantes entre idiomas
+```
+
+### Smart Contracts (solo hybrid)
+```bash
+npm run contracts:build        # forge build
+npm run contracts:test         # forge test -vvv
+npm run contracts:slither      # Análisis de seguridad
+npm run contracts:sync-abi     # Copiar ABIs al frontend
+npm run contracts:deploy:fuji  # Deploy a Fuji testnet
+npm run qa:hybrid              # QA completo (Web2 + Web3)
 ```
 
 ---
@@ -278,12 +329,20 @@ test('should calculate total with tax', () => {
 
 ---
 
-## 🔒 Seguridad
+## Seguridad
 
+### Off-Chain
 - Validar TODAS las entradas de usuario (Zod)
-- NUNCA exponer secrets en código
+- NUNCA exponer secrets en código (PINATA_JWT, keys AA = server-side only)
 - SIEMPRE habilitar RLS en tablas Supabase
 - HTTPS en producción
+
+### On-Chain (hybrid)
+- OpenZeppelin para todos los estándares (ERC-20, ERC-721, AccessControl)
+- Slither antes de deploy a mainnet
+- Zod schemas para addresses, amounts, chainId (`shared/lib/web3/validation.ts`)
+- Verificar chainId correcto antes de firmar TX
+- Mostrar resumen al usuario antes de firmar
 
 ---
 

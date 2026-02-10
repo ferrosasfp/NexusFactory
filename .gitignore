@@ -64,5 +64,10 @@ Thumbs.db
 supabase/.branches
 supabase/.temp
 
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/lib/
+
 # CLI Project
-/create-saas-factory
+/create-nexus/node_modules

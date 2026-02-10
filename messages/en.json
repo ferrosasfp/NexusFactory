@@ -1,0 +1,99 @@
+{
+  "common": {
+    "appName": "NexusFactory",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "welcome": "Welcome"
+  },
+  "home": {
+    "title": "NexusFactory",
+    "subtitle": "Your app is ready. Start building."
+  },
+  "auth": {
+    "login": "Sign In",
+    "signup": "Create Account",
+    "signout": "Sign Out",
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your account",
+    "signupTitle": "Create account",
+    "signupSubtitle": "Get started for free",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New Password",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Sign in",
+    "forgotPasswordTitle": "Reset password",
+    "forgotPasswordSubtitle": "Enter your email to receive a reset link",
+    "sendResetLink": "Send Reset Link",
+    "sending": "Sending...",
+    "resetLinkSent": "Check your email for a reset link.",
+    "backToLogin": "Back to login",
+    "checkEmailTitle": "Check your email",
+    "checkEmailMessage": "We've sent you a confirmation link. Please check your email to complete your registration.",
+    "updatePasswordTitle": "Set new password",
+    "updatePasswordSubtitle": "Enter your new password below",
+    "updatePassword": "Update Password",
+    "updating": "Updating...",
+    "continueWithGoogle": "Continue with Google",
+    "orContinueWith": "or continue with"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcomeUser": "Welcome, {email}"
+  },
+  "wallet": {
+    "title": "Wallet",
+    "connect": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "balance": "Balance",
+    "network": "Network",
+    "address": "Address",
+    "switchNetwork": "Switch Network",
+    "smartAccount": "Smart Account",
+    "externalWallet": "External Wallet"
+  },
+  "contracts": {
+    "title": "Contracts",
+    "read": "Read Contract",
+    "write": "Write Contract",
+    "abi": "Contract ABI",
+    "address": "Contract Address"
+  },
+  "storage": {
+    "title": "Decentralized Storage",
+    "description": "Upload and retrieve files from IPFS.",
+    "upload": "Upload File",
+    "uploading": "Uploading...",
+    "viewFile": "View File",
+    "cid": "CID",
+    "gateway": "Gateway URL",
+    "dragOrClick": "Drag a file here or click to select",
+    "selectFile": "Select File",
+    "uploadSuccess": "File \"{name}\" uploaded successfully!",
+    "viewer": "Retrieve File",
+    "enterCid": "Enter CID (e.g. Qm...)",
+    "retrieve": "Retrieve",
+    "loading": "Loading...",
+    "fileUrl": "File URL"
+  },
+  "transactions": {
+    "title": "Transactions",
+    "status": "Status",
+    "history": "History",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "failed": "Failed"
+  }
+}

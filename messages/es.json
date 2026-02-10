@@ -1,0 +1,99 @@
+{
+  "common": {
+    "appName": "NexusFactory",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "back": "Volver",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "welcome": "Bienvenido"
+  },
+  "home": {
+    "title": "NexusFactory",
+    "subtitle": "Tu app está lista. Empieza a construir."
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "signup": "Crear Cuenta",
+    "signout": "Cerrar Sesión",
+    "loginTitle": "Bienvenido de vuelta",
+    "loginSubtitle": "Inicia sesión en tu cuenta",
+    "signupTitle": "Crear cuenta",
+    "signupSubtitle": "Comienza gratis",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "newPassword": "Nueva contraseña",
+    "signingIn": "Iniciando sesión...",
+    "creatingAccount": "Creando cuenta...",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "signupLink": "Regístrate",
+    "loginLink": "Inicia sesión",
+    "forgotPasswordTitle": "Restablecer contraseña",
+    "forgotPasswordSubtitle": "Ingresa tu correo para recibir un enlace de restablecimiento",
+    "sendResetLink": "Enviar Enlace",
+    "sending": "Enviando...",
+    "resetLinkSent": "Revisa tu correo para el enlace de restablecimiento.",
+    "backToLogin": "Volver al inicio de sesión",
+    "checkEmailTitle": "Revisa tu correo",
+    "checkEmailMessage": "Te hemos enviado un enlace de confirmación. Revisa tu correo para completar tu registro.",
+    "updatePasswordTitle": "Nueva contraseña",
+    "updatePasswordSubtitle": "Ingresa tu nueva contraseña",
+    "updatePassword": "Actualizar Contraseña",
+    "updating": "Actualizando...",
+    "continueWithGoogle": "Continuar con Google",
+    "orContinueWith": "o continúa con"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcomeUser": "Bienvenido, {email}"
+  },
+  "wallet": {
+    "title": "Billetera",
+    "connect": "Conectar Billetera",
+    "disconnect": "Desconectar",
+    "balance": "Saldo",
+    "network": "Red",
+    "address": "Dirección",
+    "switchNetwork": "Cambiar Red",
+    "smartAccount": "Cuenta Inteligente",
+    "externalWallet": "Billetera Externa"
+  },
+  "contracts": {
+    "title": "Contratos",
+    "read": "Leer Contrato",
+    "write": "Escribir Contrato",
+    "abi": "ABI del Contrato",
+    "address": "Dirección del Contrato"
+  },
+  "storage": {
+    "title": "Almacenamiento Descentralizado",
+    "description": "Sube y recupera archivos desde IPFS.",
+    "upload": "Subir Archivo",
+    "uploading": "Subiendo...",
+    "viewFile": "Ver Archivo",
+    "cid": "CID",
+    "gateway": "URL del Gateway",
+    "dragOrClick": "Arrastra un archivo aquí o haz clic para seleccionar",
+    "selectFile": "Seleccionar Archivo",
+    "uploadSuccess": "Archivo \"{name}\" subido exitosamente!",
+    "viewer": "Recuperar Archivo",
+    "enterCid": "Ingresa CID (ej. Qm...)",
+    "retrieve": "Recuperar",
+    "loading": "Cargando...",
+    "fileUrl": "URL del Archivo"
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "status": "Estado",
+    "history": "Historial",
+    "pending": "Pendiente",
+    "confirmed": "Confirmada",
+    "failed": "Fallida"
+  }
+}

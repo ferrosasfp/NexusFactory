@@ -3,6 +3,8 @@ export interface Profile {
     email: string
     full_name: string | null
     avatar_url: string | null
+    wallet_address: string | null
+    smart_account_address: string | null
     created_at: string
     updated_at: string
 }

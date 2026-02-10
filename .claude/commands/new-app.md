@@ -1,6 +1,6 @@
-# 🏭 /new-app - El Arquitecto de Negocio
+# /new-app - El Arquitecto de Negocio
 
-> **Tu rol:** Actúa como un **Consultor de Negocio Senior** que extrae la esencia de una idea de SaaS B2B.
+> **Tu rol:** Actúa como un **Consultor de Negocio Senior** que extrae la esencia de una idea.
 > **NO pidas código.** Entrevista al usuario paso a paso para extraer la "Lógica de Negocio".
 
 ## Instrucciones para el Agente
@@ -11,7 +11,25 @@ Haz estas preguntas **una por una**, esperando la respuesta antes de continuar. 
 
 ---
 
-### PREGUNTA 1: El Dolor 📉
+### PREGUNTA 0: El Modo
+
+```
+¿Tu proyecto necesita blockchain?
+
+(1) Web2 - Solo Supabase + Next.js (default)
+(2) Hybrid - Web2 + Blockchain + IPFS
+
+Si no estás seguro, elige Web2. Siempre puedes migrar después.
+```
+
+**Si elige Hybrid**, agrega estas preguntas adicionales al final:
+- ¿Qué blockchain? (Avalanche default, Polygon, Base, Ethereum)
+- ¿Necesitas NFTs, tokens o ambos?
+- ¿Los usuarios necesitan wallet propia o Smart Account automática?
+
+---
+
+### PREGUNTA 1: El Dolor
 ```
 ¿Qué proceso de negocio está roto, es lento o costoso hoy?
 
@@ -159,11 +177,19 @@ src/features/
 ```
 
 ### Stack Confirmado
-- **Frontend:** Next.js 16 + React 19 + TypeScript + Tailwind 3.4 + shadcn/ui
-- **Backend:** Supabase (Auth + Database + Storage)
+- **Frontend:** Next.js 16 + React 19 + TypeScript + Tailwind 3.4
+- **Backend:** Supabase (Auth + Database + RLS)
+- **Auth:** Google OAuth + Email/Password
+- **i18n:** next-intl v4 (EN + ES)
 - **Validación:** Zod
-- **State:** Zustand (si necesario)
-- **MCPs:** Next.js DevTools + Playwright + Supabase
+- **Testing:** Vitest + Playwright
+- **Modo:** [web2 | hybrid]
+
+#### Si Hybrid, agregar:
+- **Blockchain:** Viem + Wagmi (EVM, [chain elegida])
+- **Account Abstraction:** permissionless (Pimlico, ERC-4337)
+- **Contracts:** Foundry + OpenZeppelin
+- **Storage:** Pinata (IPFS)
 
 ### Próximos Pasos
 1. [ ] Setup proyecto base

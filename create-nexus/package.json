@@ -1,0 +1,21 @@
+{
+  "name": "create-nexus",
+  "version": "0.1.0",
+  "description": "CLI to scaffold NexusFactory projects (Web2 or Hybrid Web2+Web3)",
+  "type": "module",
+  "bin": {
+    "create-nexus": "./index.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "lib/"
+  ],
+  "keywords": [
+    "nextjs",
+    "supabase",
+    "web3",
+    "scaffold",
+    "cli"
+  ],
+  "license": "MIT"
+}

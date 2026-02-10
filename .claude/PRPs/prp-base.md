@@ -160,13 +160,47 @@ ALTER TABLE [tabla] ENABLE ROW LEVEL SECURITY;
 
 ---
 
-## 🎯 Stack (Golden Path)
+## Stack (Golden Path)
 
 | Capa | Tecnología |
 |------|------------|
 | Framework | Next.js 16 + React 19 + TypeScript |
 | Estilos | Tailwind CSS 3.4 |
-| Backend | Supabase (Auth + DB) |
+| Backend | Supabase (Auth + DB + RLS) |
+| Auth | Google OAuth + Email/Password |
+| i18n | next-intl v4 (EN + ES) |
 | Validación | Zod |
-| Estado | Zustand |
-| Testing | Playwright MCP |
+| Testing | Vitest + Playwright |
+
+### Web3 Stack (solo hybrid)
+
+| Capa | Tecnología |
+|------|------------|
+| Blockchain | Viem + Wagmi (EVM agnóstico, Avalanche default) |
+| Account Abstraction | permissionless (Pimlico, ERC-4337) |
+| Smart Contracts | Foundry + OpenZeppelin |
+| Storage | Agnóstico (Pinata/IPFS default) |
+| Security | Slither + Zod validation |
+
+### Secciones Opcionales para PRPs Hybrid
+
+#### Modelo On-Chain (si aplica)
+```solidity
+// Contrato: contracts/src/[Nombre].sol
+// Hereda: OpenZeppelin [ERC-20/721/etc]
+// Deploy: contracts/script/Deploy[Nombre].s.sol
+```
+
+#### Storage Descentralizado (si aplica)
+```
+Upload: src/actions/storage.ts → StorageProvider → Pinata
+CID guardado en: profiles.[campo] (Supabase)
+Retrieval: NEXT_PUBLIC_STORAGE_GATEWAY/[CID]
+```
+
+#### Seguridad Web3
+- [ ] OpenZeppelin base contracts
+- [ ] Slither sin vulnerabilidades críticas
+- [ ] Zod validation en inputs (addresses, amounts)
+- [ ] Server-side secrets (PINATA_JWT, AA keys)
+```
