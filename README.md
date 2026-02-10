@@ -12,8 +12,8 @@
 | **Hybrid** | Web2 + Viem/Wagmi + Foundry + IPFS + AA | dApps, marketplaces NFT, DeFi, tokenización |
 
 ```bash
-npx create-nexus mi-proyecto
-# Paso 1: Nombre → Paso 2: web2 o hybrid → Listo
+create-nexus mi-proyecto web2     # App Web2
+create-nexus mi-proyecto hybrid   # App Web2 + Web3
 ```
 
 ---
@@ -91,21 +91,43 @@ create-nexus/                    # CLI scaffolder interactivo
 
 ## Quick Start
 
-### 1. Clonar e instalar
+### 1. Clonar el repo (una sola vez)
 
 ```bash
 git clone https://github.com/ferrosasfp/NexusFactory.git
 cd NexusFactory
-npm install
 ```
 
-### 2. Configurar ambiente
+### 2. Instalar el CLI globalmente (una sola vez)
 
 ```bash
-cp .env.example .env.local
+cd create-nexus
+npm install -g .
+cd ..
 ```
 
-Edita `.env.local` con tus credenciales:
+Esto registra el comando `create-nexus` en tu sistema. A partir de ahora puedes usarlo **desde cualquier carpeta** de tu terminal.
+
+### 3. Crear un proyecto nuevo
+
+```bash
+# Desde CUALQUIER carpeta de tu terminal:
+cd ~/mis-proyectos
+create-nexus mi-app web2        # Modo Web2
+create-nexus mi-dapp hybrid     # Modo Hybrid (Web2 + Web3)
+```
+
+El CLI copia los archivos template, limpia lo que no necesitas segn el modo, genera `.env.local` y ejecuta `npm install` automticamente.
+
+### 4. Configurar ambiente
+
+Entra al proyecto generado y edita `.env.local` (ya fue creado por el CLI):
+
+```bash
+cd mi-app
+```
+
+Completa las variables en `.env.local` con tus credenciales:
 
 | Variable | Dónde obtenerla |
 |----------|----------------|
@@ -182,43 +204,44 @@ npm run dev
 
 ## CLI: create-nexus
 
-El scaffolder interactivo que genera proyectos listos para usar.
+Scaffolder interactivo que genera proyectos listos para usar.
 
-### Instalación global
+### Instalacion (una sola vez)
 
 ```bash
+# Desde la raiz del repo clonado:
 cd create-nexus
 npm install -g .
 ```
 
+Al instalar, el CLI guarda la ruta del repo template. Esto permite que funcione **desde cualquier carpeta** de tu terminal (Windows, Mac, Linux).
+
+> **Si mueves el repo a otra ruta**, reinstala con `npm install -g .` desde la nueva ubicacion.
+
 ### Uso
 
 ```bash
-# Interactivo (wizard completo)
-create-nexus
+# Desde CUALQUIER carpeta:
+create-nexus mi-app web2       # Modo rapido Web2
+create-nexus mi-dapp hybrid    # Modo rapido Hybrid
 
-# Rápido (sin preguntas)
-create-nexus mi-app web2
-create-nexus mi-dapp hybrid
+# Wizard interactivo (te guia paso a paso):
+create-nexus
 ```
+
+### Que hace el CLI
+
+1. Copia los archivos template del repo clonado
+2. Si es Web2: elimina archivos de blockchain (wallet, contracts, storage, web3)
+3. Genera `.env.local` pre-configurado segun el modo
+4. Ejecuta `npm install` automaticamente
+5. Muestra los proximos pasos de configuracion
 
 ### Flujo del Wizard
 
-**Web2 (3 pasos):**
-1. Nombre del proyecto
-2. Modo → Web2
-3. Idioma default (EN/ES)
+**Web2 (3 pasos):** Nombre → Modo → Idioma → Listo
 
-**Hybrid (7 pasos):**
-1. Nombre del proyecto
-2. Modo → Hybrid
-3. Blockchain (Avalanche, Polygon, Base, Ethereum, custom)
-4. RPC Provider (público, Alchemy, custom)
-5. Storage (Pinata o configurar después)
-6. Account Abstraction (Pimlico o sin AA)
-7. Idioma default
-
-El CLI genera `.env.local` pre-configurado y ejecuta `npm install`.
+**Hybrid (7 pasos):** Nombre → Modo → Blockchain → RPC → Storage → Account Abstraction → Idioma → Listo
 
 ---
 
