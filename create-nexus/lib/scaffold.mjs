@@ -6,7 +6,59 @@ import { HYBRID_ONLY, HYBRID_DEPS, HYBRID_SCRIPTS } from './config.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const TEMPLATE_ROOT = resolve(__dirname, '..', '..')
+
+/**
+ * Finds the NexusFactory template root directory.
+ * Supports multiple scenarios:
+ *   1. NEXUS_TEMPLATE_ROOT env var (explicit override)
+ *   2. Relative to __dirname (when running from inside the repo)
+ *   3. .template-root marker file (written by postinstall when npm install -g)
+ */
+function findTemplateRoot() {
+  // 1. Explicit env var (highest priority)
+  if (process.env.NEXUS_TEMPLATE_ROOT) {
+    const envRoot = resolve(process.env.NEXUS_TEMPLATE_ROOT)
+    if (existsSync(join(envRoot, 'package.json'))) {
+      return envRoot
+    }
+  }
+
+  // 2. Relative path from __dirname (works when running from repo)
+  const relativeRoot = resolve(__dirname, '..', '..')
+  const relPkgPath = join(relativeRoot, 'package.json')
+  if (existsSync(relPkgPath)) {
+    try {
+      const pkg = JSON.parse(readFileSync(relPkgPath, 'utf-8'))
+      if (pkg.name === 'nexus-factory') {
+        return relativeRoot
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }
+
+  // 3. Fallback: .template-root marker (written by postinstall on global install)
+  const markerPath = resolve(__dirname, '..', '.template-root')
+  if (existsSync(markerPath)) {
+    const root = readFileSync(markerPath, 'utf-8').trim()
+    if (existsSync(join(root, 'package.json'))) {
+      return root
+    }
+  }
+
+  // 4. No template found - show clear error
+  console.error('')
+  console.error('  Error: No se encontro el template de NexusFactory.')
+  console.error('')
+  console.error('  Opciones:')
+  console.error('    1. Ejecuta create-nexus desde dentro del repo NexusFactory')
+  console.error('    2. Exporta NEXUS_TEMPLATE_ROOT=/ruta/al/repo')
+  console.error('    3. Reinstala: cd /ruta/repo/create-nexus && npm install -g .')
+  console.error('')
+  process.exit(1)
+}
+
+const TEMPLATE_ROOT = findTemplateRoot()
 
 export async function scaffold(config) {
   const targetDir = resolve(process.cwd(), config.projectName)

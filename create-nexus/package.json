@@ -1,6 +1,6 @@
 {
   "name": "create-nexus",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI to scaffold NexusFactory projects (Web2 or Hybrid Web2+Web3)",
   "type": "module",
   "bin": {
@@ -10,6 +10,9 @@
     "index.mjs",
     "lib/"
   ],
+  "scripts": {
+    "postinstall": "node -e \"const fs=require('fs');const p=require('path');const root=p.resolve(__dirname,'..');try{const pkg=JSON.parse(fs.readFileSync(p.join(root,'package.json'),'utf-8'));if(pkg.name==='nexus-factory'){fs.writeFileSync(p.join(__dirname,'.template-root'),root);}}catch{}\""
+  },
   "keywords": [
     "nextjs",
     "supabase",
