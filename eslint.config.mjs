@@ -10,6 +10,8 @@ const eslintConfig = [
             "dist/**",
             "coverage/**",
             "create-nexus/**",
+            ".claude/**",
+            ".agent/**",
             "contracts/**",
             "*.min.*",
         ],

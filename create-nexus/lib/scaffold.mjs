@@ -74,8 +74,24 @@ export async function scaffold(config) {
     recursive: true,
     filter: (src) => {
       const rel = src.replace(TEMPLATE_ROOT, '').replace(/\\/g, '/')
-      // Skip node_modules, .git, .next, create-nexus itself
-      if (rel.includes('/node_modules') || rel.includes('/.git') || rel.includes('/.next') || rel.includes('/create-nexus/')) {
+      // Skip build artifacts, VCS, factory-internal tooling, and CLI itself
+      if (
+        rel.includes('/node_modules') ||
+        rel.includes('/.git') ||
+        rel.includes('/.next') ||
+        rel === '/create-nexus' ||
+        rel.includes('/create-nexus/') ||
+        rel === '/.claude' ||
+        rel.includes('/.claude/') ||
+        rel === '/.agent' ||
+        rel.includes('/.agent/') ||
+        rel === '/CLAUDE.md' ||
+        rel === '/GEMINI.md' ||
+        rel === '/ANTIGRAVITY_SETUP.md' ||
+        rel.endsWith('.mcp_config.example.json') ||
+        rel === '/tsconfig.tsbuildinfo' ||
+        rel === '/package-lock.json'
+      ) {
         return false
       }
       return true
@@ -107,11 +123,10 @@ export async function scaffold(config) {
     const layoutPath = join(targetDir, 'src/app/[locale]/layout.tsx')
     if (existsSync(layoutPath)) {
       let layout = readFileSync(layoutPath, 'utf-8')
-      // Remove Web3Provider import (handles any import style)
-      layout = layout.replace(/import\s*\{[^}]*Web3Provider[^}]*\}\s*from\s*['"][^'"]+['"]\s*\n?/g, '')
-      // Remove Web3Provider wrapper (handles whitespace)
-      layout = layout.replace(/\s*<Web3Provider>\s*/g, '\n')
-      layout = layout.replace(/\s*<\/Web3Provider>\s*/g, '\n')
+      // Use regex to handle both \n and \r\n line endings (Windows/Unix)
+      layout = layout.replace(/import\s*\{[^}]*Web3Provider[^}]*\}\s*from\s*['"][^'"]*['"]\r?\n?/, '')
+      layout = layout.replace(/\s*<Web3Provider>\r?\n?/, '\n')
+      layout = layout.replace(/\s*<\/Web3Provider>\r?\n?/, '\n')
       writeFileSync(layoutPath, layout)
     }
 
@@ -132,7 +147,7 @@ export async function scaffold(config) {
   // Step 4: Install dependencies
   console.log('  Instalando dependencias (npm install)...')
   try {
-    execSync('npm install', { cwd: targetDir, stdio: 'pipe' })
+    execSync('npm install --legacy-peer-deps', { cwd: targetDir, stdio: 'pipe' })
     console.log('  ✓ Dependencias instaladas')
   } catch {
     console.log('  ⚠ npm install fallo. Ejecuta "npm install" manualmente.')

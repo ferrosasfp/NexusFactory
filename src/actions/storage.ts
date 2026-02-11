@@ -55,13 +55,12 @@ export async function uploadFile(formData: FormData) {
   }
 
   // Parse and validate metadata
-  let metadata: Record<string, string> | undefined
   const metadataStr = formData.get('metadata') as string | null
-
+  let metadata: Record<string, string> | undefined
   if (metadataStr) {
     try {
-      const parsedMetadata = JSON.parse(metadataStr) as unknown
-      const metadataValidation = metadataSchema.safeParse(parsedMetadata)
+      const parsed: unknown = JSON.parse(metadataStr)
+      const metadataValidation = metadataSchema.safeParse(parsed)
 
       if (!metadataValidation.success) {
         return { error: 'Invalid metadata format' }
@@ -83,6 +82,8 @@ export async function uploadFile(formData: FormData) {
   }
 }
 
+// TODO: Add a `user_files` table + RLS to track CID ownership per user.
+// Currently any authenticated user can delete any pinned CID.
 export async function deleteFile(cid: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -109,6 +110,13 @@ export async function deleteFile(cid: string) {
 }
 
 export async function getFileUrl(cid: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    return { error: 'Not authenticated' }
+  }
+
   // Validate CID format
   const cidValidation = cidSchema.safeParse(cid)
 

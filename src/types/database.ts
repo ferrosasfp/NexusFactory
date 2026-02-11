@@ -9,6 +9,9 @@ export interface Profile {
     updated_at: string
 }
 
+// Note: created_at and updated_at are `not null default now()` in the migration,
+// so they are always present in SELECT results (typed as string, not null).
+
 export interface Database {
     public: {
         Tables: {

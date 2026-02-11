@@ -5,4 +5,9 @@ test.describe('Storage Page', () => {
     await page.goto('/en/storage')
     await expect(page).toHaveURL(/\/en\/login/)
   })
+
+  test('storage page requires auth in Spanish locale', async ({ page }) => {
+    await page.goto('/es/storage')
+    await expect(page).toHaveURL(/\/es\/login/)
+  })
 })

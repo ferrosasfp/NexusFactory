@@ -59,14 +59,7 @@ class Web3ErrorBoundary extends Component<Props, ErrorBoundaryState> {
 }
 
 export function Web3Provider({ children }: Props) {
-  // SSR-safe QueryClient - create once per component instance
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 60 * 1000, // 1 minute
-      },
-    },
-  }))
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
     <Web3ErrorBoundary>

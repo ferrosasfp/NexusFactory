@@ -1,10 +1,17 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-export async function GET(request: Request) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ locale: string }> }
+) {
+  const { locale } = await params
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/dashboard'
+
+  // Validate `next` to prevent open redirect attacks
+  const nextRaw = searchParams.get('next') ?? `/${locale}/dashboard`
+  const next = nextRaw.startsWith('/') && !nextRaw.startsWith('//') ? nextRaw : `/${locale}/dashboard`
 
   if (code) {
     const supabase = await createClient()
@@ -24,5 +31,5 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_error`)
+  return NextResponse.redirect(`${origin}/${locale}/login?error=auth_callback_error`)
 }

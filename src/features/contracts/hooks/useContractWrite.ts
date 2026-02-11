@@ -3,15 +3,16 @@
 import { useState, useCallback } from 'react'
 import { type Abi, type Address, type Hash } from 'viem'
 import { useWalletClient } from 'wagmi'
-import { publicClient } from '@/shared/lib/web3/client'
+import { getPublicClient } from '@/shared/lib/web3/client'
 
 interface UseContractWriteParams {
   address: Address
   abi: Abi
   functionName: string
+  chainId?: number
 }
 
-export function useContractWrite({ address, abi, functionName }: UseContractWriteParams) {
+export function useContractWrite({ address, abi, functionName, chainId }: UseContractWriteParams) {
   const { data: walletClient } = useWalletClient()
   const [hash, setHash] = useState<Hash | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -28,7 +29,8 @@ export function useContractWrite({ address, abi, functionName }: UseContractWrit
     setHash(null)
 
     try {
-      const { request } = await publicClient.simulateContract({
+      const client = getPublicClient(chainId)
+      const { request } = await client.simulateContract({
         address,
         abi,
         functionName,
@@ -46,7 +48,7 @@ export function useContractWrite({ address, abi, functionName }: UseContractWrit
     } finally {
       setIsLoading(false)
     }
-  }, [address, abi, functionName, walletClient])
+  }, [address, abi, functionName, walletClient, chainId])
 
   return { hash, isLoading, error, write }
 }

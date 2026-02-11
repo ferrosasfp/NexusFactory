@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { type Abi, type Address } from 'viem'
 import { getPublicClient } from '@/shared/lib/web3/client'
 
@@ -13,22 +13,16 @@ interface UseContractReadParams {
   chainId?: number
 }
 
-export function useContractRead({
-  address,
-  abi,
-  functionName,
-  args = [],
-  enabled = true,
-  chainId,
-}: UseContractReadParams) {
+export function useContractRead({ address, abi, functionName, args = [], enabled = true, chainId }: UseContractReadParams) {
   const [data, setData] = useState<unknown>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Stabilize abi and args references to prevent infinite loops
-  // Arrays are compared by reference, so we use JSON.stringify for value comparison
-  const stableAbi = useMemo(() => abi, [JSON.stringify(abi)])
-  const stableArgs = useMemo(() => args, [JSON.stringify(args)])
+  // Stabilize array/object references to prevent infinite re-renders
+  const argsKey = JSON.stringify(args)
+  const stableArgs = useMemo(() => args, [argsKey]) // eslint-disable-line react-hooks/exhaustive-deps
+  const abiRef = useRef(abi)
+  abiRef.current = abi
 
   const refetch = useCallback(async () => {
     if (!enabled) return
@@ -40,7 +34,7 @@ export function useContractRead({
       const client = getPublicClient(chainId)
       const result = await client.readContract({
         address,
-        abi: stableAbi,
+        abi: abiRef.current,
         functionName,
         args: stableArgs as unknown[],
       })
@@ -51,7 +45,7 @@ export function useContractRead({
     } finally {
       setIsLoading(false)
     }
-  }, [address, stableAbi, functionName, stableArgs, enabled, chainId])
+  }, [address, functionName, stableArgs, enabled, chainId])
 
   useEffect(() => {
     if (enabled) {

@@ -1,56 +1,26 @@
 import { createPublicClient, http, type PublicClient } from 'viem'
-import { defaultChain, getChainById, testnetChains } from './chains'
+import { defaultChain, getChainById } from './chains'
 
-/**
- * Cache for public clients, keyed by chainId.
- * Prevents creating duplicate clients for the same chain.
- */
 const clientCache = new Map<number, PublicClient>()
 
 /**
- * Factory function to get a public client for a specific chain.
- *
- * @param chainId - The chain ID to get a client for
- * @returns A cached PublicClient instance for the chain
- *
- * @example
- * ```typescript
- * import { getPublicClient } from '@/shared/lib/web3/client'
- * import { avalanche } from 'viem/chains'
- *
- * const client = getPublicClient(avalanche.id)
- * const balance = await client.getBalance({ address: '0x...' })
- * ```
+ * Returns a PublicClient for the given chain ID.
+ * Clients are cached per chain so repeated calls are free.
+ * Falls back to defaultChain when no chainId is provided.
  */
 export function getPublicClient(chainId?: number): PublicClient {
-  const targetChain = chainId ? getChainById(chainId) : defaultChain
-  const chain = targetChain || defaultChain
+  const chain = chainId ? (getChainById(chainId) ?? defaultChain) : defaultChain
+  const cached = clientCache.get(chain.id)
+  if (cached) return cached
 
-  // Return cached client if it exists
-  if (clientCache.has(chain.id)) {
-    return clientCache.get(chain.id)!
-  }
+  const rpcUrl = chain.testnet
+    ? (process.env.NEXT_PUBLIC_RPC_TESTNET || undefined)
+    : (process.env.NEXT_PUBLIC_RPC_MAINNET || undefined)
 
-  // Determine which RPC URL to use based on chain type
-  const isTestnet = testnetChains.some((c) => c.id === chain.id)
-  const rpcUrl = isTestnet
-    ? process.env.NEXT_PUBLIC_RPC_TESTNET
-    : process.env.NEXT_PUBLIC_RPC_MAINNET
-
-  // Create and cache new client
-  const client = createPublicClient({
-    chain,
-    transport: http(rpcUrl || undefined),
-  })
-
+  const client = createPublicClient({ chain, transport: http(rpcUrl) })
   clientCache.set(chain.id, client)
   return client
 }
 
-/**
- * Default public client (uses defaultChain from chains.ts).
- * For backward compatibility with existing code.
- *
- * @deprecated Use `getPublicClient(chainId)` instead for multi-chain support
- */
+/** @deprecated Use getPublicClient(chainId) instead for multi-chain support */
 export const publicClient = getPublicClient()

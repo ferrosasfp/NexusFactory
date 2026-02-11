@@ -17,7 +17,12 @@
     "pageNotFound": "404",
     "copy": "Copiar",
     "copied": "¡Copiado!",
-    "viewDetails": "Ver detalles"
+    "viewDetails": "Ver detalles",
+    "notFound": "Página no encontrada",
+    "notFoundMessage": "La página que buscas no existe.",
+    "goHome": "Ir al inicio",
+    "tryAgain": "Intentar de nuevo",
+    "somethingWentWrong": "Algo salió mal"
   },
   "home": {
     "title": "NexusFactory",
@@ -53,8 +58,18 @@
     "updatePasswordSubtitle": "Ingresa tu nueva contraseña",
     "updatePassword": "Actualizar Contraseña",
     "updating": "Actualizando...",
+    "confirmPassword": "Confirmar Contraseña",
+    "passwordsMismatch": "Las contraseñas no coinciden",
     "continueWithGoogle": "Continuar con Google",
     "orContinueWith": "o continúa con"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "wallet": "Billetera",
+    "contracts": "Contratos",
+    "storage": "Almacenamiento",
+    "signout": "Cerrar Sesión",
+    "menu": "Menú"
   },
   "dashboard": {
     "title": "Panel",

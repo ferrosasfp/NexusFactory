@@ -1,12 +1,13 @@
 -- Create a table for public profiles
 create table public.profiles (
   id uuid references auth.users on delete cascade not null primary key,
-  updated_at timestamp with time zone,
+  email text not null,
   full_name text,
   avatar_url text,
-  email text,
+  created_at timestamp with time zone not null default now(),
+  updated_at timestamp with time zone not null default now(),
 
-  constraint username_length check (char_length(full_name) >= 3)
+  constraint full_name_length check (char_length(full_name) >= 3)
 );
 
 -- Set up Realtime
@@ -15,8 +16,8 @@ alter publication supabase_realtime add table public.profiles;
 -- Set up Row Level Security (RLS)
 alter table public.profiles enable row level security;
 
-create policy "Public profiles are viewable by everyone." on public.profiles
-  for select using (true);
+create policy "Users can view their own profile." on public.profiles
+  for select using (auth.uid() = id);
 
 create policy "Users can insert their own profile." on public.profiles
   for insert with check (auth.uid() = id);

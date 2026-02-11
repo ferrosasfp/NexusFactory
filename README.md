@@ -117,9 +117,20 @@ create-nexus mi-app web2        # Modo Web2
 create-nexus mi-dapp hybrid     # Modo Hybrid (Web2 + Web3)
 ```
 
-El CLI copia los archivos template, limpia lo que no necesitas segn el modo, genera `.env.local` y ejecuta `npm install` automticamente.
+El CLI copia los archivos template, limpia lo que no necesitas segun el modo, genera `.env.local` y ejecuta `npm install` automaticamente.
 
-### 4. Configurar ambiente
+### 4. Configurar Supabase
+
+#### 4a. Crear proyecto en Supabase
+
+1. Ve a [supabase.com](https://supabase.com) y crea una cuenta (o inicia sesion)
+2. Click en **New Project**
+3. Elige un nombre, password y region
+4. Una vez creado, ve a **Settings → API** y copia:
+   - `Project URL` → es tu `NEXT_PUBLIC_SUPABASE_URL`
+   - `anon public` key → es tu `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+#### 4b. Configurar `.env.local`
 
 Entra al proyecto generado y edita `.env.local` (ya fue creado por el CLI):
 
@@ -127,38 +138,74 @@ Entra al proyecto generado y edita `.env.local` (ya fue creado por el CLI):
 cd mi-app
 ```
 
-Completa las variables en `.env.local` con tus credenciales:
+Completa las variables con tus credenciales de Supabase:
 
-| Variable | Dónde obtenerla |
-|----------|----------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | [supabase.com](https://supabase.com) → Settings → API |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Misma ubicación |
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...tu-key
+```
 
-#### Variables adicionales (Hybrid)
+#### 4c. Ejecutar migraciones (crear tablas y RLS)
 
-| Variable | Servicio | Tier Gratuito |
-|----------|----------|---------------|
-| `NEXT_PUBLIC_BUNDLER_URL` | [dashboard.pimlico.io](https://dashboard.pimlico.io) | 1M créditos/mes, sin tarjeta |
-| `PINATA_JWT` | [pinata.cloud](https://pinata.cloud) | 500 uploads/mes |
+Necesitas autenticarte con Supabase CLI y linkear tu proyecto antes de pushear las migraciones.
 
-### 3. Configurar Google OAuth
+**Paso 1: Login en Supabase CLI**
 
-1. [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials
-2. Crear OAuth 2.0 Client ID (Web application)
-3. Redirect URI: `http://localhost:3000/en/callback`
-4. En Supabase Dashboard → Authentication → Providers → Google → Pegar Client ID y Secret
+```bash
+npx supabase login
+```
 
-### 4. Ejecutar migraciones
+Se abrira tu navegador automaticamente. Supabase te mostrara un **codigo de verificacion** en la pagina web. Copia ese codigo y pegalo en la terminal cuando lo pida.
+
+> Si el navegador no se abre, la terminal mostrara un link que puedes abrir manualmente.
+
+**Paso 2: Linkear tu proyecto**
+
+Tu `project-ref` es el subdominio de tu Supabase URL. Por ejemplo, si tu URL es `https://abcdefgh.supabase.co`, tu ref es `abcdefgh`.
+
+```bash
+npx supabase link --project-ref tu-project-ref
+```
+
+**Paso 3: Push de migraciones**
 
 ```bash
 npx supabase db push
 ```
 
-### 5. Desarrollo
+Esto crea las tablas `profiles` y `wallet_addresses` (hybrid) con sus politicas RLS.
+
+> Te pedira confirmacion antes de aplicar. Escribe `y` para continuar.
+
+### 5. Configurar Google OAuth
+
+1. Ve a [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials
+2. Crear **OAuth 2.0 Client ID** (tipo: Web application)
+3. En **Authorized redirect URIs** agrega: `http://localhost:3000/en/callback`
+4. Ve a **Supabase Dashboard → Authentication → Providers → Google**
+5. Pega el **Client ID** y **Client Secret** de Google
+
+### 6. Variables adicionales (solo Hybrid)
+
+| Variable | Servicio | Como obtenerla |
+|----------|----------|----------------|
+| `NEXT_PUBLIC_BUNDLER_URL` | [Pimlico](https://dashboard.pimlico.io) | Crear cuenta (gratis, sin tarjeta) → Dashboard → API Key |
+| `PINATA_JWT` | [Pinata](https://pinata.cloud) | Crear cuenta → API Keys → New Key |
+
+Agregalas en tu `.env.local`:
+
+```env
+NEXT_PUBLIC_BUNDLER_URL=https://api.pimlico.io/v2/...
+PINATA_JWT=eyJhbGciOi...
+```
+
+### 7. Desarrollo
 
 ```bash
 npm run dev
 ```
+
+Abre `http://localhost:3000` en tu navegador.
 
 ---
 

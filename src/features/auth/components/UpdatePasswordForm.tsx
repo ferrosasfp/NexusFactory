@@ -14,6 +14,15 @@ export function UpdatePasswordForm() {
         setLoading(true)
         setError(null)
 
+        const password = formData.get('password') as string
+        const confirmPassword = formData.get('confirmPassword') as string
+
+        if (password !== confirmPassword) {
+            setError(t('passwordsMismatch'))
+            setLoading(false)
+            return
+        }
+
         formData.set('locale', locale)
         const result = await updatePassword(formData)
 
@@ -32,6 +41,20 @@ export function UpdatePasswordForm() {
                 <input
                     id="password"
                     name="password"
+                    type="password"
+                    required
+                    minLength={6}
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+            </div>
+
+            <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium">
+                    {t('confirmPassword')}
+                </label>
+                <input
+                    id="confirmPassword"
+                    name="confirmPassword"
                     type="password"
                     required
                     minLength={6}
