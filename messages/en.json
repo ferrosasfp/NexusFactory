@@ -11,6 +11,13 @@
     "edit": "Edit",
     "close": "Close",
     "welcome": "Welcome",
+    "retry": "Retry",
+    "search": "Search",
+    "noResults": "No results found",
+    "pageNotFound": "404",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "viewDetails": "View details",
     "notFound": "Page not found",
     "notFoundMessage": "The page you're looking for doesn't exist.",
     "goHome": "Go to home",
@@ -110,5 +117,36 @@
     "pending": "Pending",
     "confirmed": "Confirmed",
     "failed": "Failed"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "notFound": "Page not found",
+    "notFoundDescription": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go home",
+    "tryAgain": "Try again",
+    "unauthorized": "You are not authorized to access this page",
+    "networkError": "Network error. Please check your connection.",
+    "sessionExpired": "Your session has expired. Please sign in again."
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMin": "Password must be at least 6 characters",
+    "nameMin": "Name must be at least 2 characters",
+    "invalidAddress": "Invalid wallet address format",
+    "invalidCid": "Invalid IPFS CID format",
+    "fileTooLarge": "File size must not exceed {maxSize}MB",
+    "invalidFileType": "File type not supported",
+    "invalidJson": "Invalid JSON format"
+  },
+  "web3Errors": {
+    "walletNotConnected": "Please connect your wallet first",
+    "wrongNetwork": "Please switch to {network}",
+    "transactionFailed": "Transaction failed",
+    "transactionRejected": "Transaction rejected by user",
+    "insufficientFunds": "Insufficient funds for this transaction",
+    "contractError": "Smart contract error",
+    "walletAlreadyLinked": "This wallet is already linked to another account",
+    "smartAccountNotConfigured": "Account Abstraction is not configured"
   }
 }

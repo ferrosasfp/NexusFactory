@@ -11,6 +11,13 @@
     "edit": "Editar",
     "close": "Cerrar",
     "welcome": "Bienvenido",
+    "retry": "Reintentar",
+    "search": "Buscar",
+    "noResults": "Sin resultados",
+    "pageNotFound": "404",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "viewDetails": "Ver detalles",
     "notFound": "Página no encontrada",
     "notFoundMessage": "La página que buscas no existe.",
     "goHome": "Ir al inicio",
@@ -110,5 +117,36 @@
     "pending": "Pendiente",
     "confirmed": "Confirmada",
     "failed": "Fallida"
+  },
+  "errors": {
+    "generic": "Algo salió mal",
+    "notFound": "Página no encontrada",
+    "notFoundDescription": "La página que buscas no existe o ha sido movida.",
+    "goHome": "Ir al inicio",
+    "tryAgain": "Intentar de nuevo",
+    "unauthorized": "No tienes autorización para acceder a esta página",
+    "networkError": "Error de red. Revisa tu conexión.",
+    "sessionExpired": "Tu sesión ha expirado. Inicia sesión nuevamente."
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Ingresa un correo electrónico válido",
+    "passwordMin": "La contraseña debe tener al menos 6 caracteres",
+    "nameMin": "El nombre debe tener al menos 2 caracteres",
+    "invalidAddress": "Formato de dirección de billetera inválido",
+    "invalidCid": "Formato de CID IPFS inválido",
+    "fileTooLarge": "El archivo no debe superar {maxSize}MB",
+    "invalidFileType": "Tipo de archivo no soportado",
+    "invalidJson": "Formato JSON inválido"
+  },
+  "web3Errors": {
+    "walletNotConnected": "Conecta tu billetera primero",
+    "wrongNetwork": "Cambia a la red {network}",
+    "transactionFailed": "Transacción fallida",
+    "transactionRejected": "Transacción rechazada por el usuario",
+    "insufficientFunds": "Fondos insuficientes para esta transacción",
+    "contractError": "Error en contrato inteligente",
+    "walletAlreadyLinked": "Esta billetera ya está vinculada a otra cuenta",
+    "smartAccountNotConfigured": "Account Abstraction no está configurado"
   }
 }

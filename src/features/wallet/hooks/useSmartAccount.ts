@@ -61,6 +61,7 @@ export function useSmartAccount() {
     smartAccountAddress,
     isCreating,
     isConfigured,
+    isWip: true,
     error,
     createSmartAccount,
   }

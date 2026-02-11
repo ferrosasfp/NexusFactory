@@ -10,8 +10,22 @@ export default defineConfig({
     include: ['src/**/*.test.{ts,tsx}'],
     coverage: {
       provider: 'v8',
+      reporter: ['text', 'text-summary', 'lcov', 'html'],
+      reportsDirectory: './coverage',
       include: ['src/features/**', 'src/shared/**', 'src/actions/**'],
-      exclude: ['**/*.types.ts', '**/index.ts'],
+      exclude: [
+        '**/*.types.ts',
+        '**/index.ts',
+        '**/__tests__/**',
+        '**/*.test.*',
+        '**/__mocks__/**',
+      ],
+      thresholds: {
+        lines: 60,
+        functions: 60,
+        branches: 50,
+        statements: 60,
+      },
     },
   },
   resolve: {

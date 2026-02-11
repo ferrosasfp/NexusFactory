@@ -64,13 +64,19 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
           className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
         />
 
-        <input
-          type="text"
-          value={argsInput}
-          onChange={(e) => setArgsInput(e.target.value)}
-          placeholder='Arguments as JSON (e.g. ["0x...", 100])'
-          className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-        />
+        <div>
+          <input
+            type="text"
+            value={argsInput}
+            onChange={(e) => {
+              setArgsInput(e.target.value)
+              setParseError(null)
+            }}
+            placeholder='Arguments as JSON (e.g. ["0x...", 100])'
+            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          />
+          {parseError && <p className="mt-1 text-sm text-red-600">{parseError}</p>}
+        </div>
 
         <button
           type="submit"
@@ -81,7 +87,7 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
         </button>
       </form>
 
-      {(parseError ?? error) && <p className="text-sm text-red-600">{parseError ?? error}</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
 
       {hash && (
         <div className="rounded-md border border-green-200 bg-green-50 p-3">
