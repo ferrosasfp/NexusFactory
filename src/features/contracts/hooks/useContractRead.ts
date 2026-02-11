@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { type Abi, type Address } from 'viem'
-import { publicClient } from '@/shared/lib/web3/client'
+import { getPublicClient } from '@/shared/lib/web3/client'
 
 interface UseContractReadParams {
   address: Address
@@ -10,12 +10,19 @@ interface UseContractReadParams {
   functionName: string
   args?: readonly unknown[]
   enabled?: boolean
+  chainId?: number
 }
 
-export function useContractRead({ address, abi, functionName, args = [], enabled = true }: UseContractReadParams) {
+export function useContractRead({ address, abi, functionName, args = [], enabled = true, chainId }: UseContractReadParams) {
   const [data, setData] = useState<unknown>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Stabilize array/object references to prevent infinite re-renders
+  const argsKey = JSON.stringify(args)
+  const stableArgs = useMemo(() => args, [argsKey]) // eslint-disable-line react-hooks/exhaustive-deps
+  const abiRef = useRef(abi)
+  abiRef.current = abi
 
   const refetch = useCallback(async () => {
     if (!enabled) return
@@ -24,11 +31,12 @@ export function useContractRead({ address, abi, functionName, args = [], enabled
     setError(null)
 
     try {
-      const result = await publicClient.readContract({
+      const client = getPublicClient(chainId)
+      const result = await client.readContract({
         address,
-        abi,
+        abi: abiRef.current,
         functionName,
-        args: args as unknown[],
+        args: stableArgs as unknown[],
       })
       setData(result)
     } catch (err) {
@@ -37,7 +45,7 @@ export function useContractRead({ address, abi, functionName, args = [], enabled
     } finally {
       setIsLoading(false)
     }
-  }, [address, abi, functionName, args, enabled])
+  }, [address, functionName, stableArgs, enabled, chainId])
 
   useEffect(() => {
     if (enabled) {

@@ -15,6 +15,7 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
   const [address, setAddress] = useState(defaultAddress ?? '' as Address)
   const [functionName, setFunctionName] = useState('')
   const [argsInput, setArgsInput] = useState('')
+  const [parseError, setParseError] = useState<string | null>(null)
 
   const { hash, isLoading, error, write } = useContractWrite({
     address: address as Address,
@@ -24,7 +25,21 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
 
   async function handleWrite(e: React.FormEvent) {
     e.preventDefault()
-    const args = argsInput.trim() ? JSON.parse(argsInput) : []
+    setParseError(null)
+    let args: unknown[] = []
+    if (argsInput.trim()) {
+      try {
+        const parsed: unknown = JSON.parse(argsInput)
+        if (!Array.isArray(parsed)) {
+          setParseError('Arguments must be a JSON array (e.g. ["0x...", 100])')
+          return
+        }
+        args = parsed
+      } catch {
+        setParseError('Invalid JSON format')
+        return
+      }
+    }
     await write(args)
   }
 
@@ -66,7 +81,7 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
         </button>
       </form>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {(parseError ?? error) && <p className="text-sm text-red-600">{parseError ?? error}</p>}
 
       {hash && (
         <div className="rounded-md border border-green-200 bg-green-50 p-3">

@@ -10,7 +10,12 @@
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "notFound": "Page not found",
+    "notFoundMessage": "The page you're looking for doesn't exist.",
+    "goHome": "Go to home",
+    "tryAgain": "Try again",
+    "somethingWentWrong": "Something went wrong"
   },
   "home": {
     "title": "NexusFactory",
@@ -46,8 +51,18 @@
     "updatePasswordSubtitle": "Enter your new password below",
     "updatePassword": "Update Password",
     "updating": "Updating...",
+    "confirmPassword": "Confirm Password",
+    "passwordsMismatch": "Passwords do not match",
     "continueWithGoogle": "Continue with Google",
     "orContinueWith": "or continue with"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "wallet": "Wallet",
+    "contracts": "Contracts",
+    "storage": "Storage",
+    "signout": "Sign Out",
+    "menu": "Menu"
   },
   "dashboard": {
     "title": "Dashboard",

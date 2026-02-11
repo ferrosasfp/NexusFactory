@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { addressSchema, txHashSchema, chainIdSchema, amountSchema } from '../validation'
+import { addressSchema, txHashSchema, chainIdSchema, amountSchema, hexSchema } from '../validation'
 
 describe('Web3 Validation Schemas', () => {
   describe('addressSchema', () => {
@@ -72,6 +72,40 @@ describe('Web3 Validation Schemas', () => {
 
     it('rejects non-numeric string', () => {
       const result = amountSchema.safeParse('abc')
+      expect(result.success).toBe(false)
+    })
+  })
+
+  describe('hexSchema', () => {
+    it('accepts valid hex string', () => {
+      // Arrange & Act
+      const result = hexSchema.safeParse('0xdeadbeef')
+
+      // Assert
+      expect(result.success).toBe(true)
+    })
+
+    it('accepts empty hex 0x', () => {
+      // Arrange & Act
+      const result = hexSchema.safeParse('0x')
+
+      // Assert
+      expect(result.success).toBe(true)
+    })
+
+    it('rejects string without 0x prefix', () => {
+      // Arrange & Act
+      const result = hexSchema.safeParse('deadbeef')
+
+      // Assert
+      expect(result.success).toBe(false)
+    })
+
+    it('rejects non-hex characters', () => {
+      // Arrange & Act
+      const result = hexSchema.safeParse('0xGHIJ')
+
+      // Assert
       expect(result.success).toBe(false)
     })
   })

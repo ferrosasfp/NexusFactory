@@ -74,8 +74,20 @@ export async function scaffold(config) {
     recursive: true,
     filter: (src) => {
       const rel = src.replace(TEMPLATE_ROOT, '').replace(/\\/g, '/')
-      // Skip node_modules, .git, .next, create-nexus itself
-      if (rel.includes('/node_modules') || rel.includes('/.git') || rel.includes('/.next') || rel.includes('/create-nexus/')) {
+      // Skip build artifacts, VCS, factory-internal tooling, and CLI itself
+      if (
+        rel.includes('/node_modules') ||
+        rel.includes('/.git') ||
+        rel.includes('/.next') ||
+        rel.includes('/create-nexus/') ||
+        rel.includes('/.claude') ||
+        rel.includes('/.agent') ||
+        rel === '/CLAUDE.md' ||
+        rel === '/GEMINI.md' ||
+        rel === '/ANTIGRAVITY_SETUP.md' ||
+        rel.endsWith('.mcp_config.example.json') ||
+        rel === '/tsconfig.tsbuildinfo'
+      ) {
         return false
       }
       return true
@@ -107,9 +119,10 @@ export async function scaffold(config) {
     const layoutPath = join(targetDir, 'src/app/[locale]/layout.tsx')
     if (existsSync(layoutPath)) {
       let layout = readFileSync(layoutPath, 'utf-8')
-      layout = layout.replace("import { Web3Provider } from '@/shared/providers/Web3Provider'\n", '')
-      layout = layout.replace('<Web3Provider>', '')
-      layout = layout.replace('</Web3Provider>', '')
+      // Use regex to handle both \n and \r\n line endings (Windows/Unix)
+      layout = layout.replace(/import\s*\{[^}]*Web3Provider[^}]*\}\s*from\s*['"][^'"]*['"]\r?\n?/, '')
+      layout = layout.replace(/\s*<Web3Provider>\r?\n?/, '\n')
+      layout = layout.replace(/\s*<\/Web3Provider>\r?\n?/, '\n')
       writeFileSync(layoutPath, layout)
     }
 
