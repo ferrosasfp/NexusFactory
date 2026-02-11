@@ -79,14 +79,18 @@ export async function scaffold(config) {
         rel.includes('/node_modules') ||
         rel.includes('/.git') ||
         rel.includes('/.next') ||
+        rel === '/create-nexus' ||
         rel.includes('/create-nexus/') ||
-        rel.includes('/.claude') ||
-        rel.includes('/.agent') ||
+        rel === '/.claude' ||
+        rel.includes('/.claude/') ||
+        rel === '/.agent' ||
+        rel.includes('/.agent/') ||
         rel === '/CLAUDE.md' ||
         rel === '/GEMINI.md' ||
         rel === '/ANTIGRAVITY_SETUP.md' ||
         rel.endsWith('.mcp_config.example.json') ||
-        rel === '/tsconfig.tsbuildinfo'
+        rel === '/tsconfig.tsbuildinfo' ||
+        rel === '/package-lock.json'
       ) {
         return false
       }
@@ -143,7 +147,7 @@ export async function scaffold(config) {
   // Step 4: Install dependencies
   console.log('  Instalando dependencias (npm install)...')
   try {
-    execSync('npm install', { cwd: targetDir, stdio: 'pipe' })
+    execSync('npm install --legacy-peer-deps', { cwd: targetDir, stdio: 'pipe' })
     console.log('  ✓ Dependencias instaladas')
   } catch {
     console.log('  ⚠ npm install fallo. Ejecuta "npm install" manualmente.')
