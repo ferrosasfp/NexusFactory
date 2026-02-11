@@ -9,6 +9,15 @@ function ask(question) {
   })
 }
 
+function isValidUrl(str) {
+  try {
+    const url = new URL(str)
+    return url.protocol === 'http:' || url.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
 function printHeader() {
   console.log('')
   console.log('  ╔══════════════════════════════════════╗')
@@ -30,8 +39,32 @@ export async function runWizard(projectNameArg, modeArg) {
       rl.close()
       process.exit(1)
     }
+    // Validate project name
+    const projectNameRegex = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/
+    if (!projectNameRegex.test(projectName)) {
+      console.log('  Error: Project name must be lowercase, alphanumeric with hyphens only (e.g., my-app)')
+      rl.close()
+      process.exit(1)
+    }
+    if (projectName.length > 50) {
+      console.log('  Error: Project name must be 50 characters or less.')
+      rl.close()
+      process.exit(1)
+    }
   } else {
     console.log(`  Paso 1: Nombre del proyecto → ${projectName}`)
+    // Validate project name
+    const projectNameRegex = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/
+    if (!projectNameRegex.test(projectName)) {
+      console.log('  Error: Project name must be lowercase, alphanumeric with hyphens only (e.g., my-app)')
+      rl.close()
+      process.exit(1)
+    }
+    if (projectName.length > 50) {
+      console.log('  Error: Project name must be 50 characters or less.')
+      rl.close()
+      process.exit(1)
+    }
   }
 
   // Step 2: Mode
@@ -79,6 +112,17 @@ export async function runWizard(projectNameArg, modeArg) {
       config.chain = 'custom'
       config.rpcMainnet = await ask('  RPC Mainnet URL: ')
       config.rpcTestnet = await ask('  RPC Testnet URL: ')
+      // Validate custom RPC URLs
+      if (!isValidUrl(config.rpcMainnet)) {
+        console.log('  Error: Invalid Mainnet RPC URL. Must start with http:// or https://')
+        rl.close()
+        process.exit(1)
+      }
+      if (!isValidUrl(config.rpcTestnet)) {
+        console.log('  Error: Invalid Testnet RPC URL. Must start with http:// or https://')
+        rl.close()
+        process.exit(1)
+      }
     } else {
       const key = chainMap[chainChoice] ?? 'avalanche'
       config.chain = key
@@ -98,6 +142,17 @@ export async function runWizard(projectNameArg, modeArg) {
     } else if (rpcChoice === '3') {
       config.rpcMainnet = await ask('  Custom RPC Mainnet URL: ')
       config.rpcTestnet = await ask('  Custom RPC Testnet URL: ')
+      // Validate custom RPC URLs
+      if (!isValidUrl(config.rpcMainnet)) {
+        console.log('  Error: Invalid Mainnet RPC URL. Must start with http:// or https://')
+        rl.close()
+        process.exit(1)
+      }
+      if (!isValidUrl(config.rpcTestnet)) {
+        console.log('  Error: Invalid Testnet RPC URL. Must start with http:// or https://')
+        rl.close()
+        process.exit(1)
+      }
     }
 
     // Step 5: Storage
@@ -133,14 +188,17 @@ export async function runWizard(projectNameArg, modeArg) {
     }
   }
 
-  // Last step: Language (same for both modes)
-  const langStep = mode === 'hybrid' && !modeArg ? '7' : '3'
-  console.log('')
-  console.log(`  Paso ${langStep}: Idioma por defecto`)
-  console.log('    (1) English  [default]')
-  console.log('    (2) Espanol')
-  const langChoice = modeArg ? '' : await ask('  > ')
-  config.defaultLocale = langChoice === '2' ? 'es' : 'en'
+  // Last step: Language (interactive mode only)
+  if (!modeArg) {
+    const langStep = mode === 'hybrid' ? '7' : '3'
+    console.log('')
+    console.log(`  Paso ${langStep}: Idioma por defecto`)
+    console.log('    (1) English  [default]')
+    console.log('    (2) Espanol')
+    const langChoice = await ask('  > ')
+    config.defaultLocale = langChoice === '2' ? 'es' : 'en'
+  }
+  // In quick mode, defaultLocale stays as 'en' (already set in config defaults)
 
   // Summary
   console.log('')

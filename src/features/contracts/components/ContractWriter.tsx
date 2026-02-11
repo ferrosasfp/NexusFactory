@@ -15,6 +15,7 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
   const [address, setAddress] = useState(defaultAddress ?? '' as Address)
   const [functionName, setFunctionName] = useState('')
   const [argsInput, setArgsInput] = useState('')
+  const [parseError, setParseError] = useState<string>('')
 
   const { hash, isLoading, error, write } = useContractWrite({
     address: address as Address,
@@ -24,7 +25,19 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
 
   async function handleWrite(e: React.FormEvent) {
     e.preventDefault()
-    const args = argsInput.trim() ? JSON.parse(argsInput) : []
+
+    let args: unknown[] = []
+
+    if (argsInput.trim()) {
+      try {
+        args = JSON.parse(argsInput)
+        setParseError('')
+      } catch (err) {
+        setParseError('Invalid JSON format. Please check your arguments.')
+        return
+      }
+    }
+
     await write(args)
   }
 
@@ -49,13 +62,19 @@ export function ContractWriter({ address: defaultAddress, abi: defaultAbi }: Con
           className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
         />
 
-        <input
-          type="text"
-          value={argsInput}
-          onChange={(e) => setArgsInput(e.target.value)}
-          placeholder='Arguments as JSON (e.g. ["0x...", 100])'
-          className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
-        />
+        <div>
+          <input
+            type="text"
+            value={argsInput}
+            onChange={(e) => {
+              setArgsInput(e.target.value)
+              setParseError('')
+            }}
+            placeholder='Arguments as JSON (e.g. ["0x...", 100])'
+            className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+          />
+          {parseError && <p className="mt-1 text-sm text-red-600">{parseError}</p>}
+        </div>
 
         <button
           type="submit"

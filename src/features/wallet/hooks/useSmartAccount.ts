@@ -7,6 +7,11 @@ import type { Address } from 'viem'
 /**
  * Hook for Smart Account (ERC-4337) operations.
  * Requires Pimlico bundler to be configured.
+ *
+ * @wip This hook is a STUB implementation. The createSmartAccount function
+ * does not yet perform actual smart account creation. It is a placeholder
+ * for future integration with Supabase auth and Pimlico bundler.
+ * See the relevant PRP for the full implementation plan.
  */
 export function useSmartAccount() {
   const [smartAccountAddress, setSmartAccountAddress] = useState<Address | null>(null)
@@ -16,6 +21,11 @@ export function useSmartAccount() {
   const isConfigured = isAAConfigured()
 
   const createSmartAccount = useCallback(async (ownerAddress: Address) => {
+    console.warn(
+      '[WIP] Smart Account creation not yet implemented. See PRP for implementation plan.',
+      { ownerAddress }
+    )
+
     if (!isConfigured) {
       setError('Account Abstraction not configured. Set NEXT_PUBLIC_BUNDLER_URL in .env.local')
       return null
@@ -25,8 +35,11 @@ export function useSmartAccount() {
     setError(null)
 
     try {
-      // Smart Account creation will be implemented when linking with Supabase auth
-      // For now, this is a placeholder that the auth flow will call
+      // TODO: Implement actual Smart Account creation with Pimlico bundler
+      // This will include:
+      // 1. Create smart account using permissionless SDK
+      // 2. Link to Supabase auth user
+      // 3. Store smart account address in database
       setSmartAccountAddress(null)
       return null
     } catch (err) {
@@ -42,6 +55,7 @@ export function useSmartAccount() {
     smartAccountAddress,
     isCreating,
     isConfigured,
+    isWip: true,
     error,
     createSmartAccount,
   }

@@ -107,9 +107,11 @@ export async function scaffold(config) {
     const layoutPath = join(targetDir, 'src/app/[locale]/layout.tsx')
     if (existsSync(layoutPath)) {
       let layout = readFileSync(layoutPath, 'utf-8')
-      layout = layout.replace("import { Web3Provider } from '@/shared/providers/Web3Provider'\n", '')
-      layout = layout.replace('<Web3Provider>', '')
-      layout = layout.replace('</Web3Provider>', '')
+      // Remove Web3Provider import (handles any import style)
+      layout = layout.replace(/import\s*\{[^}]*Web3Provider[^}]*\}\s*from\s*['"][^'"]+['"]\s*\n?/g, '')
+      // Remove Web3Provider wrapper (handles whitespace)
+      layout = layout.replace(/\s*<Web3Provider>\s*/g, '\n')
+      layout = layout.replace(/\s*<\/Web3Provider>\s*/g, '\n')
       writeFileSync(layoutPath, layout)
     }
 

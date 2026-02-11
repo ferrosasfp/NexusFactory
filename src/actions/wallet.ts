@@ -18,6 +18,18 @@ export async function linkWallet(walletAddress: string) {
         return { error: 'Not authenticated' }
     }
 
+    // Check if wallet is already linked to another user
+    const { data: existing } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('wallet_address', validated.data)
+        .neq('id', user.id)
+        .maybeSingle()
+
+    if (existing) {
+        return { error: 'This wallet address is already linked to another account' }
+    }
+
     const { error } = await supabase
         .from('profiles')
         .update({
@@ -67,6 +79,18 @@ export async function saveSmartAccount(smartAccountAddress: string) {
 
     if (!user) {
         return { error: 'Not authenticated' }
+    }
+
+    // Check if smart account is already linked to another user
+    const { data: existing } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('smart_account_address', validated.data)
+        .neq('id', user.id)
+        .maybeSingle()
+
+    if (existing) {
+        return { error: 'This smart account address is already linked to another account' }
     }
 
     const { error } = await supabase
