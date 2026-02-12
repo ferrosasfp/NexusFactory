@@ -170,7 +170,7 @@ npx supabase link --project-ref tu-project-ref
 **Paso 3: Push de migraciones**
 
 ```bash
-npx supabase db push
+npx supabase db push --include-all
 ```
 
 Esto crea las tablas `profiles` y `wallet_addresses` (hybrid) con sus politicas RLS.

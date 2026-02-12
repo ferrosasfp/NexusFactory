@@ -375,6 +375,11 @@ test('should calculate total with tax', () => {
 - **Fix**: Siempre usar `npm run dev` (auto-detecta puerto)
 - **Aplicar en**: Todos los proyectos
 
+### 2026-02-11: Supabase db push necesita --include-all
+- **Error**: `npx supabase db push` falla con "Remote migration versions not found in local migrations directory"
+- **Fix**: Usar `npx supabase db push --include-all`
+- **Aplicar en**: Todos los proyectos generados con create-nexus + README
+
 ---
 
 *Este archivo es el cerebro de la fábrica. Cada error documentado la hace más fuerte.*
