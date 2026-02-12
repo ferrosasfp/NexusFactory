@@ -375,10 +375,14 @@ test('should calculate total with tax', () => {
 - **Fix**: Siempre usar `npm run dev` (auto-detecta puerto)
 - **Aplicar en**: Todos los proyectos
 
-### 2026-02-11: Supabase db push necesita --include-all
-- **Error**: `npx supabase db push` falla con "Remote migration versions not found in local migrations directory"
-- **Fix**: Usar `npx supabase db push --include-all`
-- **Aplicar en**: Todos los proyectos generados con create-nexus + README
+### 2026-02-11: Supabase db push falla por migraciones huérfanas
+- **Error**: `npx supabase db push` falla con "Remote migration versions not found in local migrations directory" cuando el proyecto Supabase tiene migraciones de otro modo (ej: hybrid→web2)
+- **Fix**: Primero revertir las migraciones huérfanas, luego push:
+  ```bash
+  npx supabase migration repair --status reverted <migration_ids>
+  npx supabase db push --include-all
+  ```
+- **Aplicar en**: Reutilizar proyecto Supabase entre modos (hybrid/web2) + README
 
 ---
 
