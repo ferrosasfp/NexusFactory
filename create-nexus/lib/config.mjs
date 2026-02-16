@@ -70,3 +70,12 @@ export const CHAINS = {
     rpcTestnet: 'https://rpc.sepolia.org',
   },
 }
+
+// .claude/commands/ to exclude from scaffold (factory-internal)
+export const CLAUDE_COMMANDS_EXCLUDE = ['eject-sf.md', 'update-sf.md']
+
+// .claude/agents/ only for hybrid mode
+export const CLAUDE_AGENTS_HYBRID_ONLY = ['solidity-specialist.md', 'web3-specialist.md']
+
+// .agent/workflows/ to exclude from scaffold (factory-internal)
+export const AGENT_WORKFLOWS_EXCLUDE = ['eject-sf.md', 'update-sf.md']
